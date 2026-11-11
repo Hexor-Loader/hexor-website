@@ -83,13 +83,13 @@
         .nav-logo {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             color: var(--primary-color);
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
         }
 
-        .nav-logo i { font-size: 24px; }
+        .nav-logo i { font-size: 22px; }
 
         /* =========================================
            مسار التنقل (Breadcrumb) والمنصات
@@ -109,12 +109,13 @@
 
         .platforms-scroll {
             display: flex;
-            gap: 15px;
+            gap: 25px;
             overflow-x: auto;
             padding-bottom: 10px;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
+            justify-content: flex-end; /* لترتيب الأيقونات لليمين كما في صورتك */
         }
-        .platforms-scroll::-webkit-scrollbar { display: none; } /* Chrome */
+        .platforms-scroll::-webkit-scrollbar { display: none; }
 
         .platform-item {
             display: flex;
@@ -122,14 +123,12 @@
             align-items: center;
             gap: 5px;
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 13px;
             min-width: 60px;
             cursor: pointer;
         }
 
-        .platform-item i {
-            font-size: 24px;
-        }
+        .platform-item i { font-size: 26px; }
 
         .platform-item.active {
             color: #fff;
@@ -147,13 +146,14 @@
         }
 
         /* =========================================
-           البانر الرئيسي (Hero Banner)
+           البانر الرئيسي (Hero Banner) مع الخلفية
            ========================================= */
         .hero-banner {
             margin: 10px 15px;
-            height: 200px;
+            height: 180px;
             border-radius: 15px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(15,15,15,0.9)), url('https://image.api.playstation.com/vulcan/ap/rnd/202207/2022/556f4a1732d95fb1b28e56e68231b28329318976.jpg') center/cover;
+            /* إضافة الصورة مع تعتيمها بطبقة سوداء شفافة */
+            background: linear-gradient(to bottom, rgba(15, 15, 15, 0.7), rgba(15, 15, 15, 0.9)), url('https://raw.githubusercontent.com/Hexor-Loader/hexor-website/refs/heads/main/icon/file_0000000026e88246a1a01e8bbf72e773.png') center/cover;
             position: relative;
             display: flex;
             align-items: flex-end;
@@ -164,7 +164,7 @@
         .hero-search {
             display: flex;
             width: 100%;
-            background: rgba(30, 30, 30, 0.8);
+            background: rgba(30, 30, 30, 0.85);
             backdrop-filter: blur(10px);
             border-radius: 30px;
             overflow: hidden;
@@ -192,33 +192,6 @@
             border-radius: 30px;
             margin: 4px;
         }
-
-        /* =========================================
-           بانر التطبيق ومعلومات المكتب
-           ========================================= */
-        .app-promo {
-            margin: 15px;
-            background: linear-gradient(90deg, #0a2515 0%, #111 100%);
-            border: 1px solid #1e462e;
-            border-radius: 12px;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .app-promo-text h4 { font-size: 14px; margin-bottom: 5px; }
-        .app-promo-text p { font-size: 12px; color: var(--text-muted); }
-        .app-promo-btn {
-            background-color: var(--primary-color);
-            color: #111;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .app-promo i.fa-dragon { font-size: 30px; color: var(--primary-color); }
 
         /* معلومات مكتب العراب */
         .shop-info-bar {
@@ -315,19 +288,14 @@
             font-weight: bold;
         }
 
-        .ps4-top-bar img {
-            height: 15px;
-        }
-
         .game-image img.cover {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            padding-top: 20px; /* مساحة للشريط الأزرق */
+            padding-top: 20px;
         }
 
-        /* توزيع الشارات */
         .badges-top {
             position: absolute;
             top: 25px;
@@ -541,11 +509,13 @@
         <div class="nav-right">
             <button class="nav-btn text-btn"><i class="fa-solid fa-chevron-down"></i> AR</button>
             <button class="nav-btn"><i class="fa-solid fa-gear"></i></button>
-            <button class="nav-btn" style="background-color: #1e462e; color: var(--primary-color);"><i class="fa-solid fa-dragon"></i></button>
         </div>
+        
+        <!-- تم استبدال PSPKG بمكتب العراب -->
         <div class="nav-logo">
-            <i class="fa-brands fa-playstation"></i> PSPKG
+            <i class="fa-solid fa-store" style="color: var(--warning-color);"></i> مكتب العراب
         </div>
+        
         <div class="nav-left">
             <button class="nav-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
             <button class="nav-btn"><i class="fa-solid fa-bars"></i></button>
@@ -557,19 +527,19 @@
         <div class="breadcrumb">
             Home <i class="fa-solid fa-chevron-left" style="font-size:10px; margin:0 5px;"></i> Arabic Games <i class="fa-solid fa-chevron-left" style="font-size:10px; margin:0 5px;"></i> <span>PS4</span>
         </div>
+        
+        <!-- تم تعديل المنصات لتشمل PS3 و PS4 فقط -->
         <div class="platforms-scroll">
-            <div class="platform-item"><i class="fa-brands fa-playstation"></i> PSVita</div>
-            <div class="platform-item"><i class="fa-brands fa-playstation"></i> PSP</div>
-            <div class="platform-item active"><i class="fa-brands fa-playstation"></i> PlayStation</div>
-            <div class="platform-item"><i class="fa-solid fa-gamepad"></i> Switch</div>
-            <div class="platform-item"><i class="fa-solid fa-desktop"></i> PC</div>
-            <div class="platform-item"><i class="fa-brands fa-android"></i> Android</div>
-            <div class="platform-item"><i class="fa-brands fa-xbox"></i> Xbox</div>
-            <div class="platform-item"><i class="fa-solid fa-ellipsis"></i> المزيد</div>
+            <div class="platform-item">
+                <i class="fa-brands fa-playstation"></i> PlayStation 3
+            </div>
+            <div class="platform-item active">
+                <i class="fa-brands fa-playstation"></i> PlayStation 4
+            </div>
         </div>
     </div>
 
-    <!-- البانر الرئيسي مع البحث -->
+    <!-- البانر الرئيسي مع البحث والخلفية المضللة -->
     <div class="hero-banner">
         <div class="hero-search">
             <input type="text" id="searchInput" placeholder="ابحث عن لعبة عربية..." onkeyup="filterGames()">
@@ -577,21 +547,11 @@
         </div>
     </div>
 
-    <!-- معلومات مكتب العراب (التي طلبتها سابقاً) -->
+    <!-- معلومات مكتب العراب -->
     <div class="shop-info-bar">
         <span class="shop-name"><i class="fa-solid fa-store" style="color: var(--warning-color);"></i> مكتب العراب</span>
         <span class="shop-phone"><i class="fa-solid fa-phone" style="color: var(--primary-color);"></i> الهاتف: <a href="tel:07712082333">07712082333</a></span>
         <span class="shop-address"><i class="fa-solid fa-location-dot" style="color: var(--accent-color);"></i> شارع المستشفى - مقابل اسواق ابو شيبة</span>
-    </div>
-
-    <!-- بانر التطبيق -->
-    <div class="app-promo">
-        <div class="app-promo-text">
-            <h4>تطبيق PSPKG متوفر الآن لأندرويد</h4>
-            <p>مجاني · بدون إعلانات · تحميل أسرع</p>
-            <a href="#" class="app-promo-btn" style="display:inline-block; margin-top:8px;">حمل التطبيق</a>
-        </div>
-        <i class="fa-solid fa-dragon"></i>
     </div>
 
     <!-- شريط الفلاتر -->
@@ -715,7 +675,6 @@
                 card.className = 'game-card';
                 card.innerHTML = `
                     <div class="game-image">
-                        <!-- شريط PS4 الأزرق -->
                         <div class="ps4-top-bar">
                             <i class="fa-brands fa-playstation"></i>
                             <span>PS4</span>
