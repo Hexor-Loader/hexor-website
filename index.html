@@ -468,12 +468,12 @@
                 // استخراج الرقم من حجم اللعبة (مثلاً "45 GB" تصبح 45)
                 const sizeNumber = parseInt(game.size) || 0;
                 
-                // تطبيق شرط السعر
+                // تطبيق شرط السعر (تم تغيير "دينار" إلى "د.ع")
                 let calculatedPrice = "";
                 if (sizeNumber > 20) {
-                    calculatedPrice = "2,000 دينار";
+                    calculatedPrice = "2,000 د.ع";
                 } else if (sizeNumber >= 1) {
-                    calculatedPrice = "1,000 دينار";
+                    calculatedPrice = "1,000 د.ع";
                 } else {
                     calculatedPrice = "غير محدد";
                 }
