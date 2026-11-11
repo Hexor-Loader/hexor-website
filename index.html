@@ -75,6 +75,42 @@ color:#888;
 border-top:1px solid #26344b;
 margin-top:50px;
 }
+
+/* PS4 Arabic games library */
+.games-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.games-search{flex:1;min-width:190px;background:#101827;border:1px solid #34445d;border-radius:12px;padding:14px 16px;color:#fff;font-size:16px;outline:none}
+.games-search:focus,.request-input:focus{border-color:#35a1ff;box-shadow:0 0 0 2px #35a1ff22}
+.games-count{color:#9fb0c8;font-size:13px;width:100%}
+.games-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.game-card{background:#151f30;border:1px solid #263750;border-radius:14px;overflow:hidden;min-width:0;display:flex;flex-direction:column}
+.game-cover{width:100%;aspect-ratio:3/4;object-fit:cover;background:#0b1220;display:block}
+.game-info{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
+.game-title{font-size:14px;line-height:1.5;font-weight:bold;min-height:42px;overflow-wrap:anywhere}
+.game-actions{display:flex;gap:6px;margin-top:auto}
+.game-actions a,.game-actions button{flex:1;text-align:center;font-size:12px;padding:9px 5px;border-radius:8px;text-decoration:none;border:0;cursor:pointer}
+.game-source{background:#263750;color:#dbeafe}
+.game-add{background:#087cf0;color:#fff}
+.games-state{background:#151f30;border:1px solid #263750;border-radius:14px;padding:22px;text-align:center;color:#c4d4e9;line-height:1.9}
+.games-state .btn{margin:8px 4px}
+.games-loading{display:flex;justify-content:center;align-items:center;gap:10px}
+.games-spinner{width:18px;height:18px;border:2px solid #42536c;border-top-color:#35a1ff;border-radius:50%;animation:gamesSpin .8s linear infinite}
+@keyframes gamesSpin{to{transform:rotate(360deg)}}
+.request-modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:9999}
+.request-modal.open{display:flex}
+.request-box{width:min(100%,440px);background:#111a2b;border:1px solid #34445d;border-radius:18px;padding:22px;box-shadow:0 20px 70px #0009}
+.request-box h3{margin:0 0 8px;color:#43a5ff}
+.request-box p{color:#aab8cc;line-height:1.7;margin:0 0 16px;font-size:14px}
+.request-label{display:block;margin:13px 0 7px;color:#dce8f8;font-size:14px}
+.request-input{width:100%;background:#090e18;border:1px solid #34445d;border-radius:10px;padding:13px;color:#fff;font-size:15px;outline:none}
+.request-input[readonly]{color:#9fb0c8}
+.request-buttons{display:flex;gap:10px;margin-top:18px}
+.request-buttons button{flex:1;border:0;border-radius:10px;padding:13px;font-size:15px;cursor:pointer}
+.request-cancel{background:#26344b;color:#fff}
+.request-send{background:#16a34a;color:white}
+.games-note{font-size:12px;color:#8393aa;line-height:1.7;margin-top:12px}
+@media(max-width:430px){.games-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.game-title{font-size:13px}}
+@media(min-width:800px){.games-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
 </style>
 </head>
 <body><header>
@@ -98,20 +134,213 @@ margin-top:50px;
 <p>التطبيق الرسمي لمشاهدة القنوات والأفلام والمسلسلات.</p>
 <a class="btn" href="#files">تحميل التطبيق</a>
 </div>
-</div><h2 class="section-title" id="games">الألعاب</h2>
-<div class="grid">
-<div class="card">
-<h3>مكتبة الألعاب</h3>
-<p>الألعاب والملفات الجديدة.</p>
-<a class="btn" href="#files">عرض الألعاب</a>
+</div><h2 class="section-title" id="games">🎮 ألعاب PS4 المعربة</h2>
+<p style="color:#aab8cc;line-height:1.8">تصفح الألعاب المعربة وابحث عن اللعبة التي تريدها، ثم أرسل طلبك مباشرة عبر واتساب.</p>
+<div class="games-toolbar">
+  <input id="gamesSearch" class="games-search" type="search" placeholder="ابحث عن اسم اللعبة..." aria-label="ابحث عن لعبة">
+  <a class="btn" href="https://pspkg.com/ar/arabic-games/?filters%5B%5D=ps4" target="_blank" rel="noopener">فتح موقع PSPKG</a>
+  <div id="gamesCount" class="games-count">سيتم تحميل قائمة الألعاب...</div>
 </div>
-</div><h2 class="section-title" id="files">الملفات والتحديثات</h2>
+<div id="gamesStatus" class="games-state"><div class="games-loading"><span class="games-spinner"></span> جارٍ تحميل ألعاب PS4 المعربة...</div></div>
+<div id="gamesGrid" class="games-grid" style="margin-top:14px"></div>
+<p class="games-note">مصدر أسماء وصور الألعاب: PSPKG. قد يتعذر جلب القائمة تلقائياً إذا غيّر الموقع طريقة عرض البيانات أو منع الوصول الخارجي؛ يمكنك فتح المصدر من الزر أعلاه.</p><h2 class="section-title" id="files">الملفات والتحديثات</h2>
 <div class="grid">
 <div class="card">
 <h3>مركز التحميل</h3>
 <p>سيتم إضافة ملفات التحميل والتحديثات هنا.</p>
 </div>
-</div></div><footer>
+</div></div>
+<div id="requestModal" class="request-modal" role="dialog" aria-modal="true" aria-labelledby="requestHeading">
+  <div class="request-box">
+    <h3 id="requestHeading">طلب لعبة PS4</h3>
+    <p>أدخل تفاصيل طلبك، وسيتم فتح واتساب برسالة جاهزة لإرسالها.</p>
+    <form id="gameRequestForm">
+      <label class="request-label" for="requestedGame">اسم اللعبة</label>
+      <input id="requestedGame" class="request-input" type="text" readonly required>
+      <label class="request-label" for="requestText">اكتب طلبك</label>
+      <input id="requestText" class="request-input" type="text" placeholder="مثال: أريد هذه اللعبة" required maxlength="300">
+      <label class="request-label" for="customerPhone">رقم هاتفك</label>
+      <input id="customerPhone" class="request-input" type="tel" inputmode="tel" placeholder="07xxxxxxxxx" required maxlength="20">
+      <div class="request-buttons">
+        <button type="button" class="request-cancel" id="closeRequest">إلغاء</button>
+        <button type="submit" class="request-send">إرسال عبر واتساب</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer>
 © 2026 Hexor Live - جميع الحقوق محفوظة
-</footer></body>
+</footer>
+<script>
+(function(){
+  "use strict";
+  const SOURCE_URL = "https://pspkg.com/ar/arabic-games/?filters%5B%5D=ps4";
+  const WHATSAPP_NUMBER = "9647712082333";
+  const PROXIES = [
+    url => "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
+    url => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(url),
+    url => "https://corsproxy.io/?url=" + encodeURIComponent(url)
+  ];
+
+  const grid = document.getElementById("gamesGrid");
+  const statusBox = document.getElementById("gamesStatus");
+  const countBox = document.getElementById("gamesCount");
+  const searchBox = document.getElementById("gamesSearch");
+  const modal = document.getElementById("requestModal");
+  const gameInput = document.getElementById("requestedGame");
+  const form = document.getElementById("gameRequestForm");
+  let allGames = [];
+
+  function cleanText(value){
+    return (value || "").replace(/\s+/g, " ").replace(/[\u200e\u200f]/g, "").trim();
+  }
+  function absoluteUrl(value){
+    try { return new URL(value, "https://pspkg.com").href; } catch(e){ return ""; }
+  }
+  function isUsefulTitle(title){
+    const t = cleanText(title);
+    if(t.length < 2 || t.length > 130) return false;
+    return !/^(الرئيسية|الألعاب|العاب|ps4|تحميل|تسجيل الدخول|القائمة|بحث|التالي|السابق)$/i.test(t);
+  }
+  function extractGames(markup){
+    const doc = new DOMParser().parseFromString(markup, "text/html");
+    const candidates = [];
+    const seen = new Set();
+
+    // PSPKG may change its card classes; use linked cover images as the stable signal.
+    doc.querySelectorAll("a").forEach(a => {
+      const img = a.querySelector("img");
+      if(!img) return;
+      const href = absoluteUrl(a.getAttribute("href") || "");
+      const image = absoluteUrl(img.getAttribute("data-src") || img.getAttribute("data-lazy-src") || img.getAttribute("src") || "");
+      const title = cleanText(
+        a.getAttribute("title") || img.getAttribute("alt") ||
+        a.querySelector("h2,h3,h4,.title,.name")?.textContent ||
+        a.textContent
+      );
+      if(!href || !image || !isUsefulTitle(title)) return;
+      if(!/pspkg\.com/i.test(href)) return;
+      if(/logo|avatar|icon|banner|placeholder/i.test(image)) return;
+      if(/\/(category|tag|author|page)\//i.test(href)) return;
+      const key = href;
+      if(seen.has(key)) return;
+      seen.add(key);
+      candidates.push({title, image, url:href});
+    });
+
+    // Keep game-like links only; header and footer images are generally outside the results region.
+    return candidates.filter(g => {
+      try {
+        const u = new URL(g.url);
+        return u.pathname !== "/" && !/wp-content|wp-login|cart|account/i.test(u.pathname);
+      } catch(e){ return false; }
+    });
+  }
+  function render(list){
+    grid.innerHTML = "";
+    countBox.textContent = "عدد الألعاب المعروضة: " + list.length;
+    if(!list.length){
+      grid.innerHTML = '<div class="games-state" style="grid-column:1/-1">لا توجد نتائج مطابقة لبحثك.</div>';
+      return;
+    }
+    const fragment = document.createDocumentFragment();
+    list.forEach(game => {
+      const card = document.createElement("article");
+      card.className = "game-card";
+      const img = document.createElement("img");
+      img.className = "game-cover";
+      img.loading = "lazy";
+      img.alt = game.title;
+      img.src = game.image;
+      img.onerror = function(){ this.style.visibility = "hidden"; this.style.height = "0"; };
+      const info = document.createElement("div");
+      info.className = "game-info";
+      const title = document.createElement("div");
+      title.className = "game-title";
+      title.textContent = game.title;
+      const actions = document.createElement("div");
+      actions.className = "game-actions";
+      const source = document.createElement("a");
+      source.className = "game-source";
+      source.href = game.url;
+      source.target = "_blank";
+      source.rel = "noopener";
+      source.textContent = "التفاصيل";
+      const add = document.createElement("button");
+      add.className = "game-add";
+      add.type = "button";
+      add.textContent = "إضافة";
+      add.addEventListener("click", () => openRequest(game.title));
+      actions.append(source, add);
+      info.append(title, actions);
+      card.append(img, info);
+      fragment.append(card);
+    });
+    grid.append(fragment);
+  }
+  function openRequest(title){
+    gameInput.value = title;
+    document.getElementById("requestText").value = "أريد هذه اللعبة";
+    modal.classList.add("open");
+    document.getElementById("requestText").focus();
+  }
+  function closeRequest(){ modal.classList.remove("open"); }
+  document.getElementById("closeRequest").addEventListener("click", closeRequest);
+  modal.addEventListener("click", e => { if(e.target === modal) closeRequest(); });
+  document.addEventListener("keydown", e => { if(e.key === "Escape") closeRequest(); });
+  searchBox.addEventListener("input", () => {
+    const q = cleanText(searchBox.value).toLocaleLowerCase();
+    render(allGames.filter(g => g.title.toLocaleLowerCase().includes(q)));
+  });
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const game = cleanText(gameInput.value);
+    const request = cleanText(document.getElementById("requestText").value);
+    const phone = cleanText(document.getElementById("customerPhone").value);
+    if(!game || !request || !phone){ alert("يرجى إكمال جميع الحقول."); return; }
+    if(!/^[0-9+\s()-]{7,20}$/.test(phone)){ alert("يرجى إدخال رقم هاتف صحيح."); return; }
+    const message = [
+      "🎮 طلب لعبة جديدة",
+      "",
+      "اسم اللعبة: " + game,
+      "الطلب: " + request,
+      "رقم هاتف الزبون: " + phone,
+      "",
+      "المصدر: موقع Hexor"
+    ].join("\n");
+    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    closeRequest();
+  });
+
+  async function loadFromProxy(proxyBuilder){
+    const response = await fetch(proxyBuilder(SOURCE_URL), {cache:"no-store"});
+    if(!response.ok) throw new Error("HTTP " + response.status);
+    const body = await response.text();
+    if(!body || body.length < 500) throw new Error("Empty source response");
+    return body;
+  }
+  async function loadGames(){
+    let lastError;
+    for(const proxy of PROXIES){
+      try{
+        const markup = await loadFromProxy(proxy);
+        const games = extractGames(markup);
+        if(games.length < 2) throw new Error("Could not identify game cards");
+        allGames = games;
+        statusBox.style.display = "none";
+        render(allGames);
+        return;
+      }catch(error){ lastError = error; }
+    }
+    statusBox.innerHTML = 'تعذر تحميل قائمة الألعاب تلقائياً حالياً.<br><a class="btn" href="' +
+      SOURCE_URL + '" target="_blank" rel="noopener">تصفح ألعاب PS4 في PSPKG</a>';
+    countBox.textContent = "مصدر الألعاب: PSPKG";
+    console.warn("PSPKG games load failed:", lastError);
+  }
+  loadGames();
+})();
+</script>
+
+</body>
 </html>
