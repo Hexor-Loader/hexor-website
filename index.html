@@ -329,7 +329,7 @@
         .game-title {
             font-size: 13px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             text-align: center;
             line-height: 1.4;
             display: -webkit-box;
@@ -340,28 +340,24 @@
             height: 36px; 
         }
 
+        /* تنسيق صف الإحصائيات والسعر */
         .game-stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 12px;
             color: var(--text-muted);
         }
 
         .game-stats span { display: flex; align-items: center; gap: 4px; }
         .rating i { color: var(--warning-color); }
-
-        .game-price {
-            font-size: 14px;
+        
+        /* تنسيق السعر على اليمين */
+        .price-tag {
+            color: var(--price-color) !important;
             font-weight: bold;
-            color: var(--price-color);
-            margin-bottom: 10px;
-            text-align: center;
-            background: rgba(241, 196, 15, 0.1);
-            padding: 6px;
-            border-radius: 6px;
-            border: 1px dashed rgba(241, 196, 15, 0.3);
+            font-size: 13px;
         }
 
         .btn-add {
@@ -589,7 +585,6 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
-        // تمت إضافة شارات الترجمة فقط للبيانات
         const gamesData = [
             { title: "واتش دوغز (Watch Dogs)", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
             { title: "عقيدة الأساسنز: السراب (AC Mirage)", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["مترجمة"] },
@@ -625,7 +620,6 @@
         let currentPage = 1;
         let currentGamesList = [...gamesData]; 
 
-        // دالة لتحديد لون الشارة بناءً على النص
         function getBadgeClass(badgeText) {
             if (badgeText.includes('مترجمة') && badgeText.includes('مدبلجة')) return 'dubbed'; 
             if (badgeText.includes('مترجمة')) return 'translated';
@@ -658,7 +652,6 @@
 
                 const fallbackImage = `https://placehold.co/300x400/1a1a1a/ffffff?text=${encodeURIComponent(game.title)}`;
 
-                // بناء الشارات
                 let badgesHtml = '';
                 if (game.badges && game.badges.length > 0) {
                     badgesHtml = game.badges.map(b => `<span class="badge ${getBadgeClass(b)}">${b}</span>`).join('');
@@ -675,18 +668,19 @@
                         
                         <img src="${game.image}" class="cover" alt="${game.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
                         
-                        <!-- حاوية الشارات أسفل يسار الصورة -->
                         <div class="badges-bottom">${badgesHtml}</div>
                     </div>
                     <div class="game-info">
                         <h3 class="game-title">${game.title}</h3>
                         
+                        <!-- شريط التقييم والسعر على اليمين -->
                         <div class="game-stats">
                             <span class="downloads"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
-                            <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
+                            <div style="display:flex; gap: 8px; align-items:center;">
+                                <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
+                                <span class="price-tag">${calculatedPrice}</span>
+                            </div>
                         </div>
-
-                        <div class="game-price">${calculatedPrice}</div>
 
                         <button class="btn-add" onclick="openModal('${game.title.replace(/'/g, "\\'")}', '${game.size}', '${calculatedPrice}')">
                             <i class="fa-solid fa-cart-plus"></i> إضافة (طلب)
