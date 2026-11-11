@@ -19,6 +19,7 @@
             --accent-color: #3498db;
             --danger-color: #e74c3c;
             --warning-color: #f39c12;
+            --price-color: #f1c40f;
         }
 
         * {
@@ -174,16 +175,39 @@
             height: 36px; 
         }
 
+        /* تنسيق صف الإحصائيات (تقييم + حجم + تحميلات) */
         .game-stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-size: 11px;
             color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .game-stats span {
+            display: flex;
+            align-items: center;
+            gap: 3px;
         }
 
         .rating i { color: var(--warning-color); }
+        .size i { color: var(--accent-color); }
+
+        /* تنسيق السعر */
+        .game-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--price-color);
+            margin-bottom: 10px;
+            text-align: center;
+            background: rgba(241, 196, 15, 0.1);
+            padding: 4px;
+            border-radius: 4px;
+            border: 1px dashed rgba(241, 196, 15, 0.3);
+        }
 
         .btn-add {
             margin-top: auto;
@@ -389,31 +413,31 @@
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
         /* 
-           قائمة الألعاب - تم ربطها بأسماء الصور التي قمت بتجهيزها
-           إذا أردت استخدام الصور محلياً (من استضافتك)، يمكنك إزالة baseURL 
-           ووضع المسار هكذا: image: "images/mirage.jpg"
+           قائمة الألعاب
+           - تمت إضافة حقل "size" للحجم.
+           - تمت إضافة حقل "price" للسعر (يمكنك تعديله أو تركه فارغاً "").
         */
         const gamesData = [
-            { title: "عقيدة الأساسنز: السراب (AC Mirage)", rating: "4.3", downloads: "110,721", image: baseURL + "mirage.jpg", badges: ["جديدة", "شائعة", "مترجمة"] },
-            { title: "واتش دوغز (Watch Dogs)", rating: "4.4", downloads: "1,779", image: baseURL + "watchdogs.jpg", badges: ["جديدة", "شائعة", "قوائم عربية"] },
-            { title: "هيتمان 3 (Hitman 3)", rating: "4.7", downloads: "3,492", image: baseURL + "hitman3.jpg", badges: ["جديدة", "شائعة", "قوائم عربية"] },
-            { title: "نداء الواجب: الحرب الباردة (COD)", rating: "4.3", downloads: "19,782", image: baseURL + "cod.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "تحت الأمواج (Under The Waves)", rating: "3.7", downloads: "3,478", image: baseURL + "underwaves.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "بندي وآلة الحبر (Bendy)", rating: "5.0", downloads: "913", image: baseURL + "bendy.jpg", badges: ["شائعة", "قوائم عربية"] },
-            { title: "توي ستوري 3 (Toy Story 3)", rating: "5.0", downloads: "3,298", image: baseURL + "toystory.jpg", badges: ["شائعة", "قوائم عربية"] },
-            { title: "دراغون بول زد كاكاروت (Dragon Ball Z)", rating: "4.6", downloads: "18,583", image: baseURL + "dragonball.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "مارفل أفنجرز (Marvel's Avengers)", rating: "3.6", downloads: "12,450", image: baseURL + "avengers.jpg", badges: ["شائعة", "مدبلجة ومترجمة"] },
-            { title: "كينا: جسر الأرواح (Kena)", rating: "3.7", downloads: "10,232", image: baseURL + "kena.jpg", badges: ["شائعة", "ترجمة قوائم"] },
-            { title: "غوست تسوشيما (Ghost of Tsushima)", rating: "4.3", downloads: "82,551", image: baseURL + "ghost.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "الكوابيس الصغيرة (Little Nightmares)", rating: "4.1", downloads: "32,966", image: baseURL + "littlenightmares.jpg", badges: ["شائعة", "معربة"] },
-            { title: "الكوابيس الصغيرة 2 (Little Nightmares 2)", rating: "4.3", downloads: "23,967", image: baseURL + "littlenightmares2.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "الكوابيس الصغيرة 3 (Little Nightmares 3)", rating: "4.0", downloads: "24,214", image: baseURL + "littlenightmares3.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "مافيا النسخة النهائية (Mafia)", rating: "3.7", downloads: "31,739", image: baseURL + "mafia.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "مافيا 2 (Mafia II)", rating: "4.3", downloads: "16,237", image: baseURL + "mafia2.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "ضال (Stray)", rating: "4.3", downloads: "32,584", image: baseURL + "stray.jpg", badges: ["شائعة", "معربة"] },
-            { title: "تيكن 7 (Tekken 7)", rating: "4.5", downloads: "18,000", image: baseURL + "tekken7.jpg", badges: ["شائعة", "معربة"] },
-            { title: "ذا إلدر سكرولز 5: سكايريم (Skyrim)", rating: "3.2", downloads: "5,485", image: baseURL + "skyrim.jpg", badges: ["شائعة", "مترجمة"] },
-            { title: "داركسايدرز 3 (Darksiders 3)", rating: "1.8", downloads: "2,567", image: baseURL + "darksiders3.jpg", badges: ["شائعة", "مترجمة"] }
+            { title: "عقيدة الأساسنز: السراب (AC Mirage)", rating: "4.3", downloads: "110,721", size: "45 GB", price: "5,000 د.ع", image: baseURL + "mirage.jpg", badges: ["جديدة", "شائعة", "مترجمة"] },
+            { title: "واتش دوغز (Watch Dogs)", rating: "4.4", downloads: "1,779", size: "25 GB", price: "3,000 د.ع", image: baseURL + "watchdogs.jpg", badges: ["جديدة", "شائعة", "قوائم عربية"] },
+            { title: "هيتمان 3 (Hitman 3)", rating: "4.7", downloads: "3,492", size: "60 GB", price: "5,000 د.ع", image: baseURL + "hitman3.jpg", badges: ["جديدة", "شائعة", "قوائم عربية"] },
+            { title: "نداء الواجب: الحرب الباردة (COD)", rating: "4.3", downloads: "19,782", size: "130 GB", price: "6,000 د.ع", image: baseURL + "cod.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "تحت الأمواج (Under The Waves)", rating: "3.7", downloads: "3,478", size: "15 GB", price: "3,000 د.ع", image: baseURL + "underwaves.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "بندي وآلة الحبر (Bendy)", rating: "5.0", downloads: "913", size: "5 GB", price: "2,000 د.ع", image: baseURL + "bendy.jpg", badges: ["شائعة", "قوائم عربية"] },
+            { title: "توي ستوري 3 (Toy Story 3)", rating: "5.0", downloads: "3,298", size: "6 GB", price: "2,000 د.ع", image: baseURL + "toystory.jpg", badges: ["شائعة", "قوائم عربية"] },
+            { title: "دراغون بول زد كاكاروت (Dragon Ball Z)", rating: "4.6", downloads: "18,583", size: "35 GB", price: "4,000 د.ع", image: baseURL + "dragonball.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "مارفل أفنجرز (Marvel's Avengers)", rating: "3.6", downloads: "12,450", size: "90 GB", price: "5,000 د.ع", image: baseURL + "avengers.jpg", badges: ["شائعة", "مدبلجة ومترجمة"] },
+            { title: "كينا: جسر الأرواح (Kena)", rating: "3.7", downloads: "10,232", size: "25 GB", price: "4,000 د.ع", image: baseURL + "kena.jpg", badges: ["شائعة", "ترجمة قوائم"] },
+            { title: "غوست تسوشيما (Ghost of Tsushima)", rating: "4.3", downloads: "82,551", size: "50 GB", price: "5,000 د.ع", image: baseURL + "ghost.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "الكوابيس الصغيرة (Little Nightmares)", rating: "4.1", downloads: "32,966", size: "10 GB", price: "2,000 د.ع", image: baseURL + "littlenightmares.jpg", badges: ["شائعة", "معربة"] },
+            { title: "الكوابيس الصغيرة 2 (Little Nightmares 2)", rating: "4.3", downloads: "23,967", size: "15 GB", price: "3,000 د.ع", image: baseURL + "littlenightmares2.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "الكوابيس الصغيرة 3 (Little Nightmares 3)", rating: "4.0", downloads: "24,214", size: "20 GB", price: "4,000 د.ع", image: baseURL + "littlenightmares3.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "مافيا النسخة النهائية (Mafia)", rating: "3.7", downloads: "31,739", size: "40 GB", price: "4,000 د.ع", image: baseURL + "mafia.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "مافيا 2 (Mafia II)", rating: "4.3", downloads: "16,237", size: "35 GB", price: "3,000 د.ع", image: baseURL + "mafia2.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "ضال (Stray)", rating: "4.3", downloads: "32,584", size: "15 GB", price: "3,000 د.ع", image: baseURL + "stray.jpg", badges: ["شائعة", "معربة"] },
+            { title: "تيكن 7 (Tekken 7)", rating: "4.5", downloads: "18,000", size: "60 GB", price: "4,000 د.ع", image: baseURL + "tekken7.jpg", badges: ["شائعة", "معربة"] },
+            { title: "ذا إلدر سكرولز 5: سكايريم (Skyrim)", rating: "3.2", downloads: "5,485", size: "35 GB", price: "3,000 د.ع", image: baseURL + "skyrim.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "داركسايدرز 3 (Darksiders 3)", rating: "1.8", downloads: "2,567", size: "25 GB", price: "3,000 د.ع", image: baseURL + "darksiders3.jpg", badges: ["شائعة", "مترجمة"] }
         ];
 
         const container = document.getElementById('gamesContainer');
@@ -442,8 +466,10 @@
                     badgesHtml += `<span class="badge ${badgeClass}">${badge}</span>`;
                 });
 
-                // صورة بديلة أنيقة في حال لم يتم العثور على الصورة (تظهر اسم اللعبة)
                 const fallbackImage = `https://placehold.co/300x400/1a1a1a/ffffff?text=${encodeURIComponent(game.title)}`;
+
+                // التحقق مما إذا كان هناك سعر، وإلا يتم إخفاء الحقل
+                const priceHtml = game.price ? `<div class="game-price">${game.price}</div>` : '';
 
                 const card = document.createElement('div');
                 card.className = 'game-card';
@@ -454,11 +480,18 @@
                     </div>
                     <div class="game-info">
                         <h3 class="game-title">${game.title}</h3>
+                        
+                        <!-- صف التقييم والحجم والتحميلات -->
                         <div class="game-stats">
-                            <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
-                            <span class="downloads"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
+                            <span class="rating" title="التقييم"><i class="fa-solid fa-star"></i> ${game.rating}</span>
+                            <span class="size" title="حجم اللعبة"><i class="fa-solid fa-hard-drive"></i> ${game.size}</span>
+                            <span class="downloads" title="التحميلات"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
                         </div>
-                        <button class="btn-add" onclick="openModal('${game.title.replace(/'/g, "\\'")}')">
+
+                        <!-- عرض السعر -->
+                        ${priceHtml}
+
+                        <button class="btn-add" onclick="openModal('${game.title.replace(/'/g, "\\'")}', '${game.size}', '${game.price || 'غير محدد'}')">
                             <i class="fa-solid fa-cart-plus"></i> إضافة (طلب)
                         </button>
                     </div>
@@ -476,12 +509,12 @@
             renderGames(filteredGames);
         }
 
-        // فتح نافذة الطلب
-        function openModal(gameTitle) {
-            gameNameInput.value = gameTitle;
+        // فتح نافذة الطلب (يتم تمرير الحجم والسعر أيضاً)
+        function openModal(gameTitle, gameSize, gamePrice) {
+            gameNameInput.value = `${gameTitle} | الحجم: ${gameSize} | السعر: ${gamePrice}`;
             modal.classList.add('active');
             phoneNumberInput.value = '';
-            userMessageInput.value = 'أريد هذه اللعبة من فضلك';
+            userMessageInput.value = 'أريد طلب هذه اللعبة من فضلك';
             setTimeout(() => phoneNumberInput.focus(), 100);
         }
 
@@ -511,7 +544,7 @@
             const myWhatsAppNumber = "9647712082333"; 
 
             const message = `مرحباً، لدي طلب لعبة:\n\n` +
-                            `🎮 *اسم اللعبة:* ${gameName}\n` +
+                            `🎮 *تفاصيل اللعبة:* ${gameName}\n` +
                             `💬 *الرسالة:* ${userMessage}\n` +
                             `📱 *رقم الهاتف:* ${phoneNumber}`;
 
