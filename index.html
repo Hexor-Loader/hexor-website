@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ألعاب PS4 المعربة</title>
+    <title>ألعاب PS4 المعربة - مكتب العراب</title>
     <!-- استدعاء خط Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- استدعاء أيقونات FontAwesome -->
@@ -49,6 +49,17 @@
             align-items: center;
         }
 
+        /* تنسيق الجزء العلوي من الهيدر (اللوجو + معلومات المكتب) */
+        .header-top {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
         .logo-area {
             display: flex;
             align-items: center;
@@ -56,9 +67,45 @@
         }
 
         .logo-area h1 {
-            font-size: 20px;
+            font-size: 22px;
             color: var(--primary-color);
+            margin: 0;
         }
+
+        /* تنسيق معلومات المكتب */
+        .shop-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+            background: #1a1a1a;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+        }
+
+        .shop-info span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shop-info i {
+            width: 16px;
+            text-align: center;
+        }
+
+        .shop-name {
+            color: #fff;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .shop-name i { color: var(--warning-color); }
+        .shop-phone a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
+        .shop-phone i { color: var(--primary-color); }
+        .shop-address i { color: var(--accent-color); }
 
         .search-container {
             width: 100%;
@@ -355,16 +402,41 @@
             color: var(--text-muted);
             font-size: 16px;
         }
+
+        /* تعديلات للهواتف الصغيرة */
+        @media (max-width: 600px) {
+            .header-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .shop-info {
+                width: 100%;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- Header -->
     <header>
-        <div class="logo-area">
-            <i class="fa-brands fa-playstation fa-2x" style="color: #0070d1;"></i>
-            <h1>PS4 الألعاب المعربة</h1>
+        <div class="header-top">
+            <!-- اسم الموقع -->
+            <div class="logo-area">
+                <i class="fa-brands fa-playstation fa-2x" style="color: #0070d1;"></i>
+                <h1>PS4 الألعاب المعربة</h1>
+            </div>
+
+            <!-- معلومات المكتب -->
+            <div class="shop-info">
+                <span class="shop-name"><i class="fa-solid fa-store"></i> مكتب العراب</span>
+                <span class="shop-phone"><i class="fa-solid fa-phone"></i> الهاتف: <a href="tel:07712082333">07712082333</a></span>
+                <span class="shop-address"><i class="fa-solid fa-location-dot"></i> شارع المستشفى - مقابل اسواق ابو شيبة</span>
+            </div>
         </div>
+
+        <!-- شريط البحث -->
         <div class="search-container">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="text" id="searchInput" placeholder="ابحث عن لعبة..." onkeyup="filterGames()">
@@ -412,10 +484,6 @@
         // ⚠️ رابط مجلد الصور في مستودعك على جيت هاب
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
-        /* 
-           قائمة الألعاب
-           تم إزالة السعر لأن الكود سيحسبه تلقائياً بناءً على الحجم.
-        */
         const gamesData = [
             { title: "عقيدة الأساسنز: السراب (AC Mirage)", rating: "4.3", downloads: "110,721", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["جديدة", "شائعة", "مترجمة"] },
             { title: "واتش دوغز (Watch Dogs)", rating: "4.4", downloads: "1,779", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["جديدة", "شائعة", "قوائم عربية"] },
@@ -446,7 +514,6 @@
         const phoneNumberInput = document.getElementById('phoneNumber');
         const userMessageInput = document.getElementById('userMessage');
 
-        // دالة عرض الألعاب
         function renderGames(games) {
             container.innerHTML = '';
             
@@ -465,10 +532,9 @@
                     badgesHtml += `<span class="badge ${badgeClass}">${badge}</span>`;
                 });
 
-                // استخراج الرقم من حجم اللعبة (مثلاً "45 GB" تصبح 45)
                 const sizeNumber = parseInt(game.size) || 0;
                 
-                // تطبيق شرط السعر (تم تغيير "دينار" إلى "د.ع")
+                // حساب السعر
                 let calculatedPrice = "";
                 if (sizeNumber > 20) {
                     calculatedPrice = "2,000 د.ع";
@@ -496,7 +562,6 @@
                             <span class="downloads" title="التحميلات"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
                         </div>
 
-                        <!-- عرض السعر المحسوب تلقائياً -->
                         <div class="game-price">${calculatedPrice}</div>
 
                         <button class="btn-add" onclick="openModal('${game.title.replace(/'/g, "\\'")}', '${game.size}', '${calculatedPrice}')">
@@ -508,7 +573,6 @@
             });
         }
 
-        // تصفية الألعاب
         function filterGames() {
             const searchTerm = searchInput.value.toLowerCase();
             const filteredGames = gamesData.filter(game => 
@@ -517,7 +581,6 @@
             renderGames(filteredGames);
         }
 
-        // فتح نافذة الطلب
         function openModal(gameTitle, gameSize, gamePrice) {
             gameNameInput.value = `${gameTitle} | الحجم: ${gameSize} | السعر: ${gamePrice}`;
             modal.classList.add('active');
@@ -526,7 +589,6 @@
             setTimeout(() => phoneNumberInput.focus(), 100);
         }
 
-        // إغلاق النافذة
         function closeModal() {
             modal.classList.remove('active');
         }
@@ -535,7 +597,6 @@
             if (e.target === modal) closeModal();
         });
 
-        // إرسال طلب إلى الواتساب
         function sendToWhatsApp(event) {
             event.preventDefault();
 
@@ -548,7 +609,6 @@
                 return;
             }
 
-            // ⚠️ رقم الواتساب الخاص بك (بصيغة دولية)
             const myWhatsAppNumber = "9647712082333"; 
 
             const message = `مرحباً، لدي طلب لعبة:\n\n` +
@@ -563,7 +623,6 @@
             closeModal();
         }
 
-        // تشغيل الصفحة
         window.onload = () => {
             renderGames(gamesData);
         };
