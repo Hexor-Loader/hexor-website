@@ -295,6 +295,30 @@
             padding-top: 20px;
         }
 
+        /* تنسيق شارات الترجمة */
+        .badges-bottom {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            z-index: 10;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* ألوان شارات الترجمة */
+        .badge.translated { background-color: #9b59b6; } /* مترجمة - بنفسجي */
+        .badge.arabic { background-color: #2980b9; } /* قوائم عربية/معربة - أزرق */
+        .badge.dubbed { background-color: #e74c3c; } /* مدبلجة - أحمر */
+
         .game-info {
             padding: 10px;
             display: flex;
@@ -565,28 +589,28 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
-        // تم إزالة خصائص الشارات (badges) من البيانات بالكامل
+        // تمت إضافة شارات الترجمة فقط للبيانات
         const gamesData = [
-            { title: "واتش دوغز (Watch Dogs)", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg" },
-            { title: "عقيدة الأساسنز: السراب (AC Mirage)", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg" },
-            { title: "نداء الواجب: الحرب الباردة (COD)", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg" },
-            { title: "هيتمان 3 (Hitman 3)", rating: "4.7", downloads: "3,492", size: "60 GB", image: baseURL + "hitman3.jpg" },
-            { title: "تحت الأمواج (Under The Waves)", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg" },
-            { title: "بندي وآلة الحبر (Bendy)", rating: "5.0", downloads: "913", size: "5 GB", image: baseURL + "bendy.jpg" },
-            { title: "توي ستوري 3 (Toy Story 3)", rating: "5.0", downloads: "3,298", size: "6 GB", image: baseURL + "toystory.jpg" },
-            { title: "دراغون بول زد كاكاروت (Dragon Ball Z)", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg" },
-            { title: "مارفل أفنجرز (Marvel's Avengers)", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg" },
-            { title: "كينا: جسر الأرواح (Kena)", rating: "3.7", downloads: "10,232", size: "25 GB", image: baseURL + "kena.jpg" },
-            { title: "غوست تسوشيما (Ghost of Tsushima)", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg" },
-            { title: "الكوابيس الصغيرة (Little Nightmares)", rating: "4.1", downloads: "32,966", size: "10 GB", image: baseURL + "littlenightmares.jpg" },
-            { title: "الكوابيس الصغيرة 2 (Little Nightmares 2)", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg" },
-            { title: "الكوابيس الصغيرة 3 (Little Nightmares 3)", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg" },
-            { title: "مافيا النسخة النهائية (Mafia)", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg" },
-            { title: "مافيا 2 (Mafia II)", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg" },
-            { title: "ضال (Stray)", rating: "4.3", downloads: "32,584", size: "15 GB", image: baseURL + "stray.jpg" },
-            { title: "تيكن 7 (Tekken 7)", rating: "4.5", downloads: "18,000", size: "60 GB", image: baseURL + "tekken7.jpg" },
-            { title: "ذا إلدر سكرولز 5: سكايريم (Skyrim)", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg" },
-            { title: "داركسايدرز 3 (Darksiders 3)", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg" }
+            { title: "واتش دوغز (Watch Dogs)", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
+            { title: "عقيدة الأساسنز: السراب (AC Mirage)", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["مترجمة"] },
+            { title: "نداء الواجب: الحرب الباردة (COD)", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["مترجمة"] },
+            { title: "هيتمان 3 (Hitman 3)", rating: "4.7", downloads: "3,492", size: "60 GB", image: baseURL + "hitman3.jpg", badges: ["قوائم عربية"] },
+            { title: "تحت الأمواج (Under The Waves)", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg", badges: ["مترجمة"] },
+            { title: "بندي وآلة الحبر (Bendy)", rating: "5.0", downloads: "913", size: "5 GB", image: baseURL + "bendy.jpg", badges: ["قوائم عربية"] },
+            { title: "توي ستوري 3 (Toy Story 3)", rating: "5.0", downloads: "3,298", size: "6 GB", image: baseURL + "toystory.jpg", badges: ["قوائم عربية"] },
+            { title: "دراغون بول زد كاكاروت (Dragon Ball Z)", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg", badges: ["مترجمة"] },
+            { title: "مارفل أفنجرز (Marvel's Avengers)", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg", badges: ["مدبلجة ومترجمة"] },
+            { title: "كينا: جسر الأرواح (Kena)", rating: "3.7", downloads: "10,232", size: "25 GB", image: baseURL + "kena.jpg", badges: ["قوائم عربية"] },
+            { title: "غوست تسوشيما (Ghost of Tsushima)", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg", badges: ["مترجمة"] },
+            { title: "الكوابيس الصغيرة (Little Nightmares)", rating: "4.1", downloads: "32,966", size: "10 GB", image: baseURL + "littlenightmares.jpg", badges: ["معربة"] },
+            { title: "الكوابيس الصغيرة 2 (Little Nightmares 2)", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg", badges: ["مترجمة"] },
+            { title: "الكوابيس الصغيرة 3 (Little Nightmares 3)", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg", badges: ["مترجمة"] },
+            { title: "مافيا النسخة النهائية (Mafia)", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg", badges: ["مترجمة"] },
+            { title: "مافيا 2 (Mafia II)", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg", badges: ["مترجمة"] },
+            { title: "ضال (Stray)", rating: "4.3", downloads: "32,584", size: "15 GB", image: baseURL + "stray.jpg", badges: ["معربة"] },
+            { title: "تيكن 7 (Tekken 7)", rating: "4.5", downloads: "18,000", size: "60 GB", image: baseURL + "tekken7.jpg", badges: ["معربة"] },
+            { title: "ذا إلدر سكرولز 5: سكايريم (Skyrim)", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["مترجمة"] },
+            { title: "داركسايدرز 3 (Darksiders 3)", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["مترجمة"] }
         ];
 
         const container = document.getElementById('gamesContainer');
@@ -600,6 +624,15 @@
         const itemsPerPage = 10; 
         let currentPage = 1;
         let currentGamesList = [...gamesData]; 
+
+        // دالة لتحديد لون الشارة بناءً على النص
+        function getBadgeClass(badgeText) {
+            if (badgeText.includes('مترجمة') && badgeText.includes('مدبلجة')) return 'dubbed'; 
+            if (badgeText.includes('مترجمة')) return 'translated';
+            if (badgeText.includes('مدبلجة')) return 'dubbed';
+            if (badgeText.includes('عربية') || badgeText.includes('معربة')) return 'arabic';
+            return 'translated'; 
+        }
 
         function renderGames(gamesToRender) {
             currentGamesList = gamesToRender;
@@ -625,6 +658,12 @@
 
                 const fallbackImage = `https://placehold.co/300x400/1a1a1a/ffffff?text=${encodeURIComponent(game.title)}`;
 
+                // بناء الشارات
+                let badgesHtml = '';
+                if (game.badges && game.badges.length > 0) {
+                    badgesHtml = game.badges.map(b => `<span class="badge ${getBadgeClass(b)}">${b}</span>`).join('');
+                }
+
                 const card = document.createElement('div');
                 card.className = 'game-card';
                 card.innerHTML = `
@@ -635,6 +674,9 @@
                         </div>
                         
                         <img src="${game.image}" class="cover" alt="${game.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
+                        
+                        <!-- حاوية الشارات أسفل يسار الصورة -->
+                        <div class="badges-bottom">${badgesHtml}</div>
                     </div>
                     <div class="game-info">
                         <h3 class="game-title">${game.title}</h3>
