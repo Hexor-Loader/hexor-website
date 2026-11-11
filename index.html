@@ -608,8 +608,9 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
+        // قائمة الألعاب (تمت إضافة الألعاب العشرين الجديدة بناءً على أسماء صورك)
         const gamesData = [
-            // ===== الصفحة الأولى =====
+            // الألعاب القديمة
             { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
             { titleAr: "عقيدة الأساسنز: السراب", titleEn: "AC Mirage", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["معربة"] },
             { titleAr: "نداء الواجب: الحرب الباردة", titleEn: "COD Cold War", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["معربة"] },
@@ -631,27 +632,27 @@
             { titleAr: "ذا إلدر سكرولز 5: سكايريم", titleEn: "Skyrim", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["معربة"] },
             { titleAr: "داركسايدرز 3", titleEn: "Darksiders 3", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["معربة"] },
 
-            // ===== الصفحة الثانية (الألعاب الجديدة) =====
-            { titleAr: "المعرفة قوة", titleEn: "Knowledge is power", rating: "0.0", downloads: "1,393", size: "8 GB", image: baseURL + "knowledge_is_power.jpg", badges: ["معربة"] },
-            { titleAr: "واتش دوغز: ليجن", titleEn: "Watch Dogs Legion", rating: "3.6", downloads: "7,323", size: "50 GB", image: baseURL + "watch_dogs_legion.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "ياكوزا: لايك أ دراغون إيشين", titleEn: "Like A Dragon Ishin Deluxe", rating: "4.7", downloads: "2,446", size: "60 GB", image: baseURL + "like_a_dragon_ishin.jpg", badges: ["معربة"] },
-            { titleAr: "رأيت سحباً سوداء", titleEn: "I Saw Black Clouds", rating: "0.0", downloads: "909", size: "12 GB", image: baseURL + "i_saw_black_clouds.jpg", badges: ["معربة"] },
-            { titleAr: "ماديسون", titleEn: "MADISON", rating: "4.0", downloads: "3,345", size: "22 GB", image: baseURL + "madison.jpg", badges: ["معربة"] },
-            { titleAr: "الجرينش: مغامرات عيد الميلاد", titleEn: "The Grinch: Christmas Adventures", rating: "0.0", downloads: "359", size: "6 GB", image: baseURL + "grinch_christmas_adventures.jpg", badges: ["معربة"] },
-            { titleAr: "ستيكس: شظايا الظلام", titleEn: "Styx: Shards of Darkness", rating: "1.0", downloads: "857", size: "18 GB", image: baseURL + "styx_shards_of_darkness.jpg", badges: ["معربة"] },
-            { titleAr: "سيف شوان يوان 7", titleEn: "Xuan Yuan Sword 7", rating: "0.0", downloads: "980", size: "35 GB", image: baseURL + "xuan_yuan_sword_7.jpg", badges: ["معربة"] },
-            { titleAr: "إنسرجينسي: ساندستروم", titleEn: "Insurgency Sandstorm", rating: "0.0", downloads: "2,891", size: "40 GB", image: baseURL + "insurgency_sandstorm.jpg", badges: ["معربة"] },
+            // الألعاب العشرين الجديدة
+            { titleAr: "واتش دوغز: الفيلق", titleEn: "Watch Dogs Legion", rating: "3.6", downloads: "7,323", size: "50 GB", image: baseURL + "watch_dogs_legion.jpg", badges: ["قوائم عربية"] },
+            { titleAr: "الموتى السائرون: حدود جديدة", titleEn: "The Walking Dead: A New Frontier", rating: "4.0", downloads: "5,961", size: "25 GB", image: baseURL + "the_walking_dead_a_new_frontier.jpg", badges: ["معربة"] },
             { titleAr: "سايلنت هيل 2", titleEn: "Silent Hill 2", rating: "5.0", downloads: "1,414", size: "35 GB", image: baseURL + "silent_hill_2.jpg", badges: ["قوائم وحوارات"] },
-            { titleAr: "هيتمان: نسخة لعبة العام", titleEn: "Hitman Game of The Year Edition", rating: "4.5", downloads: "35,356", size: "45 GB", image: baseURL + "hitman.jpg", badges: ["قوائم فقط"] },
-            { titleAr: "إيكاي", titleEn: "Ikai", rating: "5.0", downloads: "1,009", size: "10 GB", image: baseURL + "ikai.jpg", badges: ["معربة"] },
+            { titleAr: "ستيكس: شظايا الظلام", titleEn: "Styx: Shards of Darkness", rating: "1.0", downloads: "857", size: "18 GB", image: baseURL + "styx_shards_of_darkness.jpg", badges: ["معربة"] },
+            { titleAr: "تمرد: عاصفة رملية", titleEn: "Insurgency Sandstorm", rating: "0.0", downloads: "2,891", size: "40 GB", image: baseURL + "insurgency_sandstorm.jpg", badges: ["معربة"] },
+            { titleAr: "سيف شوان يوان 7", titleEn: "Xuan Yuan Sword 7", rating: "0.0", downloads: "980", size: "35 GB", image: baseURL + "xuan_yuan_sword_7.jpg", badges: ["معربة"] },
+            { titleAr: "داركسايدرز 2", titleEn: "Darksiders II", rating: "4.8", downloads: "5,120", size: "20 GB", image: baseURL + "darksiders2.jpg", badges: ["معربة"] },
+            { titleAr: "القتيل: الروح المشتبه بها", titleEn: "Murdered: Soul Suspect", rating: "0.0", downloads: "1,337", size: "18 GB", image: baseURL + "murdered_soul_suspect.jpg", badges: ["معربة"] },
+            { titleAr: "ماديسون", titleEn: "MADiSON", rating: "4.0", downloads: "3,345", size: "22 GB", image: baseURL + "madison.jpg", badges: ["معربة"] },
+            { titleAr: "تائه في راندوم", titleEn: "Lost in Random", rating: "1.5", downloads: "2,288", size: "22 GB", image: baseURL + "lost_in_random.jpg", badges: ["معربة"] },
+            { titleAr: "مثل التنين: ايشين", titleEn: "Like a Dragon: Ishin!", rating: "4.7", downloads: "2,446", size: "60 GB", image: baseURL + "like_a_dragon_ishin.jpg", badges: ["معربة"] },
+            { titleAr: "المعرفة قوة", titleEn: "Knowledge is Power", rating: "0.0", downloads: "1,393", size: "8 GB", image: baseURL + "knowledge_is_power.jpg", badges: ["معربة"] },
+            { titleAr: "كينغدوم كوم: الخلاص", titleEn: "Kingdom Come: Deliverance", rating: "4.8", downloads: "4,567", size: "55 GB", image: baseURL + "kingdom_come_deliverance.jpg", badges: ["معربة"] },
+            { titleAr: "قاتل محترف", titleEn: "Hitman", rating: "4.5", downloads: "35,356", size: "45 GB", image: baseURL + "hitman.jpg", badges: ["قوائم فقط"] },
+            { titleAr: "الجرينش: مغامرات عيد الميلاد", titleEn: "The Grinch: Christmas Adventures", rating: "0.0", downloads: "359", size: "6 GB", image: baseURL + "grinch_christmas_adventures.jpg", badges: ["معربة"] },
+            { titleAr: "فار: المد المتغير", titleEn: "Far: Changing Tides", rating: "0.0", downloads: "1,228", size: "8 GB", image: baseURL + "far_changing_tides.jpg", badges: ["معربة"] },
             { titleAr: "جيلت", titleEn: "Gylt", rating: "0.0", downloads: "2,605", size: "15 GB", image: baseURL + "gylt.jpg", badges: ["معربة"] },
-            { titleAr: "دمر كل البشر: كلون كارنيج", titleEn: "Destroy All Humans Clone Carnage", rating: "4.5", downloads: "1,016", size: "20 GB", image: baseURL + "destroy_all_humans_clone_carnage.jpg", badges: ["معربة"] },
-            { titleAr: "الموتى السائرون: الحدود الجديدة", titleEn: "The Walking Dead: A New Frontier", rating: "4.0", downloads: "5,961", size: "25 GB", image: baseURL + "the_walking_dead_a_new_frontier.jpg", badges: ["معربة"] },
-            { titleAr: "فار: تغير المد والجزر", titleEn: "Far Changing Tides", rating: "0.0", downloads: "1,228", size: "8 GB", image: baseURL + "far_changing_tides.jpg", badges: ["معربة"] },
-            { titleAr: "أوت لاست 2", titleEn: "Outlast 2", rating: "4.6", downloads: "10,369", size: "30 GB", image: baseURL + "outlast.jpg", badges: ["معربة"] },
-            { titleAr: "ضائع في العشوائية", titleEn: "Lost in Random", rating: "1.5", downloads: "2,288", size: "22 GB", image: baseURL + "lost_in_random.jpg", badges: ["معربة"] },
-            { titleAr: "كينغدوم كوم: دليفرنس النسخة الملكية", titleEn: "Kingdom Come: Deliverance Royale Edition", rating: "4.8", downloads: "4,567", size: "55 GB", image: baseURL + "kingdom_come_deliverance.jpg", badges: ["معربة"] },
-            { titleAr: "ميردرد: سول ساسبكت", titleEn: "Murdered Soul Suspect", rating: "0.0", downloads: "1,337", size: "18 GB", image: baseURL + "murdered_soul_suspect.jpg", badges: ["معربة"] }
+            { titleAr: "دمر كل البشر: مجزرة المستنسخين", titleEn: "Destroy All Humans! Clone Carnage", rating: "4.5", downloads: "1,016", size: "20 GB", image: baseURL + "destroy_all_humans_clone_carnage.jpg", badges: ["معربة"] },
+            { titleAr: "إيكاي", titleEn: "Ikai", rating: "5.0", downloads: "1,009", size: "10 GB", image: baseURL + "ikai.jpg", badges: ["معربة"] },
+            { titleAr: "رأيت سحبا سوداء", titleEn: "I Saw Black Clouds", rating: "0.0", downloads: "909", size: "12 GB", image: baseURL + "i_saw_black_clouds.jpg", badges: ["معربة"] }
         ];
 
         const container = document.getElementById('gamesContainer');
