@@ -315,9 +315,9 @@
         }
 
         /* ألوان شارات الترجمة */
-        .badge.translated { background-color: #9b59b6; }
-        .badge.arabic { background-color: #2980b9; }
-        .badge.dubbed { background-color: #e74c3c; }
+        .badge.translated { background-color: #9b59b6; } /* بنفسجي */
+        .badge.arabic { background-color: #2980b9; } /* أزرق */
+        .badge.dubbed { background-color: #e74c3c; } /* أحمر */
 
         .game-info {
             padding: 10px;
@@ -328,7 +328,7 @@
 
         /* تعديل حاوية العنوان لدعم سطرين */
         .game-title-container {
-            height: 42px; /* تثبيت الارتفاع للحفاظ على تناسق الكروت */
+            height: 42px; 
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -608,28 +608,28 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
-        // تم فصل الأسماء إلى titleAr (عربي) و titleEn (إنجليزي)
+        // تم تغيير كلمة "مترجمة" إلى "معربة" في جميع الألعاب
         const gamesData = [
             { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "عقيدة الأساسنز: السراب", titleEn: "AC Mirage", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["مترجمة"] },
-            { titleAr: "نداء الواجب: الحرب الباردة", titleEn: "COD Cold War", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["مترجمة"] },
+            { titleAr: "عقيدة الأساسنز: السراب", titleEn: "AC Mirage", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["معربة"] },
+            { titleAr: "نداء الواجب: الحرب الباردة", titleEn: "COD Cold War", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["معربة"] },
             { titleAr: "هيتمان 3", titleEn: "Hitman 3", rating: "4.7", downloads: "3,492", size: "60 GB", image: baseURL + "hitman3.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "تحت الأمواج", titleEn: "Under The Waves", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg", badges: ["مترجمة"] },
+            { titleAr: "تحت الأمواج", titleEn: "Under The Waves", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg", badges: ["معربة"] },
             { titleAr: "بندي وآلة الحبر", titleEn: "Bendy", rating: "5.0", downloads: "913", size: "5 GB", image: baseURL + "bendy.jpg", badges: ["قوائم عربية"] },
             { titleAr: "توي ستوري 3", titleEn: "Toy Story 3", rating: "5.0", downloads: "3,298", size: "6 GB", image: baseURL + "toystory.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "دراغون بول زد كاكاروت", titleEn: "Dragon Ball Z", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg", badges: ["مترجمة"] },
-            { titleAr: "مارفل أفنجرز", titleEn: "Marvel's Avengers", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg", badges: ["مدبلجة ومترجمة"] },
+            { titleAr: "دراغون بول زد كاكاروت", titleEn: "Dragon Ball Z", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg", badges: ["معربة"] },
+            { titleAr: "مارفل أفنجرز", titleEn: "Marvel's Avengers", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg", badges: ["مدبلجة ومعربة"] },
             { titleAr: "كينا: جسر الأرواح", titleEn: "Kena", rating: "3.7", downloads: "10,232", size: "25 GB", image: baseURL + "kena.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "غوست تسوشيما", titleEn: "Ghost of Tsushima", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg", badges: ["مترجمة"] },
+            { titleAr: "غوست تسوشيما", titleEn: "Ghost of Tsushima", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg", badges: ["معربة"] },
             { titleAr: "الكوابيس الصغيرة", titleEn: "Little Nightmares", rating: "4.1", downloads: "32,966", size: "10 GB", image: baseURL + "littlenightmares.jpg", badges: ["معربة"] },
-            { titleAr: "الكوابيس الصغيرة 2", titleEn: "Little Nightmares 2", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg", badges: ["مترجمة"] },
-            { titleAr: "الكوابيس الصغيرة 3", titleEn: "Little Nightmares 3", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg", badges: ["مترجمة"] },
-            { titleAr: "مافيا النسخة النهائية", titleEn: "Mafia", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg", badges: ["مترجمة"] },
-            { titleAr: "مافيا 2", titleEn: "Mafia II", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg", badges: ["مترجمة"] },
+            { titleAr: "الكوابيس الصغيرة 2", titleEn: "Little Nightmares 2", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg", badges: ["معربة"] },
+            { titleAr: "الكوابيس الصغيرة 3", titleEn: "Little Nightmares 3", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg", badges: ["معربة"] },
+            { titleAr: "مافيا النسخة النهائية", titleEn: "Mafia", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg", badges: ["معربة"] },
+            { titleAr: "مافيا 2", titleEn: "Mafia II", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg", badges: ["معربة"] },
             { titleAr: "ضال", titleEn: "Stray", rating: "4.3", downloads: "32,584", size: "15 GB", image: baseURL + "stray.jpg", badges: ["معربة"] },
             { titleAr: "تيكن 7", titleEn: "Tekken 7", rating: "4.5", downloads: "18,000", size: "60 GB", image: baseURL + "tekken7.jpg", badges: ["معربة"] },
-            { titleAr: "ذا إلدر سكرولز 5: سكايريم", titleEn: "Skyrim", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["مترجمة"] },
-            { titleAr: "داركسايدرز 3", titleEn: "Darksiders 3", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["مترجمة"] }
+            { titleAr: "ذا إلدر سكرولز 5: سكايريم", titleEn: "Skyrim", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["معربة"] },
+            { titleAr: "داركسايدرز 3", titleEn: "Darksiders 3", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["معربة"] }
         ];
 
         const container = document.getElementById('gamesContainer');
@@ -645,8 +645,7 @@
         let currentGamesList = [...gamesData]; 
 
         function getBadgeClass(badgeText) {
-            if (badgeText.includes('مترجمة') && badgeText.includes('مدبلجة')) return 'dubbed'; 
-            if (badgeText.includes('مترجمة')) return 'translated';
+            if (badgeText.includes('مدبلجة') && badgeText.includes('معربة')) return 'dubbed'; 
             if (badgeText.includes('مدبلجة')) return 'dubbed';
             if (badgeText.includes('عربية') || badgeText.includes('معربة')) return 'arabic';
             return 'translated'; 
@@ -695,7 +694,6 @@
                         <div class="badges-bottom">${badgesHtml}</div>
                     </div>
                     <div class="game-info">
-                        <!-- عرض الاسم العربي فوق والانجليزي تحت -->
                         <div class="game-title-container">
                             <span class="title-ar">${game.titleAr}</span>
                             <span class="title-en">${game.titleEn}</span>
