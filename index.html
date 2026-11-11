@@ -47,7 +47,7 @@
             flex-direction: column;
             gap: 15px;
             align-items: center;
-            transition: all 0.3s ease; 
+            transition: all 0.3s ease; /* حركة ناعمة عند التصغير */
         }
 
         /* تنسيق الجزء العلوي من الهيدر */
@@ -86,11 +86,6 @@
             padding: 10px 15px;
             border-radius: 8px;
             border: 1px solid #333;
-            /* إعدادات الحركة الناعمة */
-            max-height: 150px;
-            opacity: 1;
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
         }
 
         .shop-info span {
@@ -110,11 +105,7 @@
             width: 100%;
             max-width: 600px;
             position: relative;
-            /* إعدادات الحركة الناعمة */
-            max-height: 50px;
-            opacity: 1;
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease;
         }
 
         .search-container input {
@@ -143,38 +134,27 @@
         }
 
         /* =========================================
-           التعديلات الجديدة عند التمرير للأسفل (بدون رجفة)
+           التعديلات الجديدة عند التمرير للأسفل (Scrolled)
            ========================================= */
         header.scrolled {
-            padding: 10px 15px;
-            gap: 0;
+            padding: 10px 15px; /* تصغير الحواف */
+            gap: 0; /* إزالة الفراغات */
         }
 
         header.scrolled .header-top {
-            justify-content: center;
+            justify-content: center; /* توسيط اللوجو */
         }
 
-        /* إخفاء ناعم لكارت المعلومات */
         header.scrolled .shop-info {
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            margin-top: 0;
-            margin-bottom: 0;
-            border: none;
-            opacity: 0;
+            display: none; /* إخفاء كارت المعلومات */
         }
 
-        /* إخفاء ناعم لشريط البحث */
         header.scrolled .search-container {
-            max-height: 0;
-            opacity: 0;
-            margin-top: 0;
-            margin-bottom: 0;
+            display: none; /* إخفاء شريط البحث */
         }
 
         header.scrolled .logo-area h1 {
-            font-size: 18px;
+            font-size: 18px; /* تصغير الخط قليلاً */
         }
         /* ========================================= */
 
@@ -647,29 +627,19 @@
         window.onload = () => {
             renderGames(gamesData);
             
-            // === كود إخفاء الهيدر عند التمرير (محسن لمنع الرجفة) ===
+            // === كود إخفاء الهيدر عند التمرير للأسفل ===
             const header = document.getElementById('mainHeader');
-            let isScrolled = false;
-            let ticking = false;
-
+            
             window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        // إخفاء عند النزول 80 بكسل
-                        if (window.scrollY > 80 && !isScrolled) {
-                            header.classList.add('scrolled');
-                            isScrolled = true;
-                        } 
-                        // إظهار عند الصعود لأعلى من 30 بكسل (مسافة أمان)
-                        else if (window.scrollY < 30 && isScrolled) {
-                            header.classList.remove('scrolled');
-                            isScrolled = false;
-                        }
-                        ticking = false;
-                    });
-                    ticking = true;
+                // إذا نزل المستخدم أكثر من 50 بكسل
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    // إذا رجع للأعلى
+                    header.classList.remove('scrolled');
                 }
             });
+            // ==========================================
         };
     </script>
 </body>
