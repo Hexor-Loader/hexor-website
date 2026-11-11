@@ -1,346 +1,528 @@
-<!DOCTYPE html><html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hexor Live | الموقع الرسمي</title>
-<style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#090e18;
-color:#fff;
-}
-header{
-background:#111a2b;
-padding:25px 15px;
-text-align:center;
-border-bottom:1px solid #26344b;
-}
-header h1{color:#35a1ff;font-size:30px}
-header p{color:#aaa}
-nav{
-display:flex;
-justify-content:center;
-gap:20px;
-padding:18px;
-background:#101827;
-flex-wrap:wrap;
-}
-nav a{color:white;text-decoration:none}
-.container{
-max-width:950px;
-margin:35px auto;
-padding:15px;
-}
-.welcome{
-background:linear-gradient(135deg,#102d50,#17223c);
-padding:35px 20px;
-border-radius:18px;
-text-align:center;
-}
-.welcome h2{font-size:27px}
-.welcome p{color:#c4d4e9;line-height:2}
-.section-title{
-margin-top:35px;
-color:#43a5ff;
-}
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:16px;
-}
-.card{
-background:#151f30;
-padding:24px;
-border-radius:15px;
-text-align:center;
-border:1px solid #263750;
-}
-.card h3{font-size:21px}
-.card p{color:#aaa;line-height:1.8}
-.btn{
-display:inline-block;
-background:#087cf0;
-color:white;
-padding:12px 24px;
-border-radius:9px;
-text-decoration:none;
-margin-top:10px;
-}
-footer{
-text-align:center;
-padding:25px;
-color:#888;
-border-top:1px solid #26344b;
-margin-top:50px;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألعاب PS4 المعربة</title>
+    <!-- استدعاء خط Cairo من جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- استدعاء أيقونات FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-color: #ffffff;
+            --text-muted: #a0a0a0;
+            --primary-color: #2ecc71;
+            --accent-color: #3498db;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+        }
 
-/* PS4 Arabic games library */
-.games-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0}
-.games-search{flex:1;min-width:190px;background:#101827;border:1px solid #34445d;border-radius:12px;padding:14px 16px;color:#fff;font-size:16px;outline:none}
-.games-search:focus,.request-input:focus{border-color:#35a1ff;box-shadow:0 0 0 2px #35a1ff22}
-.games-count{color:#9fb0c8;font-size:13px;width:100%}
-.games-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.game-card{background:#151f30;border:1px solid #263750;border-radius:14px;overflow:hidden;min-width:0;display:flex;flex-direction:column}
-.game-cover{width:100%;aspect-ratio:3/4;object-fit:cover;background:#0b1220;display:block}
-.game-info{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1}
-.game-title{font-size:14px;line-height:1.5;font-weight:bold;min-height:42px;overflow-wrap:anywhere}
-.game-actions{display:flex;gap:6px;margin-top:auto}
-.game-actions a,.game-actions button{flex:1;text-align:center;font-size:12px;padding:9px 5px;border-radius:8px;text-decoration:none;border:0;cursor:pointer}
-.game-source{background:#263750;color:#dbeafe}
-.game-add{background:#087cf0;color:#fff}
-.games-state{background:#151f30;border:1px solid #263750;border-radius:14px;padding:22px;text-align:center;color:#c4d4e9;line-height:1.9}
-.games-state .btn{margin:8px 4px}
-.games-loading{display:flex;justify-content:center;align-items:center;gap:10px}
-.games-spinner{width:18px;height:18px;border:2px solid #42536c;border-top-color:#35a1ff;border-radius:50%;animation:gamesSpin .8s linear infinite}
-@keyframes gamesSpin{to{transform:rotate(360deg)}}
-.request-modal{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:9999}
-.request-modal.open{display:flex}
-.request-box{width:min(100%,440px);background:#111a2b;border:1px solid #34445d;border-radius:18px;padding:22px;box-shadow:0 20px 70px #0009}
-.request-box h3{margin:0 0 8px;color:#43a5ff}
-.request-box p{color:#aab8cc;line-height:1.7;margin:0 0 16px;font-size:14px}
-.request-label{display:block;margin:13px 0 7px;color:#dce8f8;font-size:14px}
-.request-input{width:100%;background:#090e18;border:1px solid #34445d;border-radius:10px;padding:13px;color:#fff;font-size:15px;outline:none}
-.request-input[readonly]{color:#9fb0c8}
-.request-buttons{display:flex;gap:10px;margin-top:18px}
-.request-buttons button{flex:1;border:0;border-radius:10px;padding:13px;font-size:15px;cursor:pointer}
-.request-cancel{background:#26344b;color:#fff}
-.request-send{background:#16a34a;color:white}
-.games-note{font-size:12px;color:#8393aa;line-height:1.7;margin-top:12px}
-@media(max-width:430px){.games-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.game-title{font-size:13px}}
-@media(min-width:800px){.games-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
 
-</style>
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding-bottom: 50px;
+        }
+
+        /* Header & Search */
+        header {
+            background-color: #111;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-area h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(46, 204, 113, 0.3);
+        }
+
+        .search-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Games Grid */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        /* Game Card */
+        .game-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .game-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #444;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .badges {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .badge.new { background-color: var(--danger-color); }
+        .badge.popular { background-color: var(--warning-color); }
+        .badge.translated { background-color: #9b59b6; }
+
+        .game-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .game-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .rating i { color: var(--warning-color); }
+
+        .btn-add {
+            margin-top: auto;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover {
+            background-color: #27ae60;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            width: 90%;
+            max-width: 400px;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border: 1px solid #333;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-close:hover {
+            color: var(--danger-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group input[readonly] {
+            background-color: #111;
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #25D366; /* WhatsApp Color */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #128C7E;
+        }
+
+        /* Empty State */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+    </style>
 </head>
-<body><header>
-<h1>HEXOR LIVE</h1>
-<p>الموقع الرسمي للتطبيق</p>
-</header><nav>
-<a href="#">الرئيسية</a>
-<a href="#apps">التطبيقات</a>
-<a href="#games">الألعاب</a>
-<a href="#files">الملفات</a>
-</nav><div class="container"><div class="welcome">
-<h2>مرحباً بك في Hexor Live</h2>
-<p>
-منصتك للترفيه والتقنية وتحميل التطبيقات
-والملفات والتحديثات الجديدة.
-</p>
-</div><h2 class="section-title" id="apps">التطبيقات</h2>
-<div class="grid">
-<div class="card">
-<h3>Hexor Live</h3>
-<p>التطبيق الرسمي لمشاهدة القنوات والأفلام والمسلسلات.</p>
-<a class="btn" href="#files">تحميل التطبيق</a>
-</div>
-</div><h2 class="section-title" id="games">🎮 ألعاب PS4 المعربة</h2>
-<p style="color:#aab8cc;line-height:1.8">تصفح الألعاب المعربة وابحث عن اللعبة التي تريدها، ثم أرسل طلبك مباشرة عبر واتساب.</p>
-<div class="games-toolbar">
-  <input id="gamesSearch" class="games-search" type="search" placeholder="ابحث عن اسم اللعبة..." aria-label="ابحث عن لعبة">
-  <a class="btn" href="https://pspkg.com/ar/arabic-games/?filters%5B%5D=ps4" target="_blank" rel="noopener">فتح موقع PSPKG</a>
-  <div id="gamesCount" class="games-count">سيتم تحميل قائمة الألعاب...</div>
-</div>
-<div id="gamesStatus" class="games-state"><div class="games-loading"><span class="games-spinner"></span> جارٍ تحميل ألعاب PS4 المعربة...</div></div>
-<div id="gamesGrid" class="games-grid" style="margin-top:14px"></div>
-<p class="games-note">مصدر أسماء وصور الألعاب: PSPKG. قد يتعذر جلب القائمة تلقائياً إذا غيّر الموقع طريقة عرض البيانات أو منع الوصول الخارجي؛ يمكنك فتح المصدر من الزر أعلاه.</p><h2 class="section-title" id="files">الملفات والتحديثات</h2>
-<div class="grid">
-<div class="card">
-<h3>مركز التحميل</h3>
-<p>سيتم إضافة ملفات التحميل والتحديثات هنا.</p>
-</div>
-</div></div>
-<div id="requestModal" class="request-modal" role="dialog" aria-modal="true" aria-labelledby="requestHeading">
-  <div class="request-box">
-    <h3 id="requestHeading">طلب لعبة PS4</h3>
-    <p>أدخل تفاصيل طلبك، وسيتم فتح واتساب برسالة جاهزة لإرسالها.</p>
-    <form id="gameRequestForm">
-      <label class="request-label" for="requestedGame">اسم اللعبة</label>
-      <input id="requestedGame" class="request-input" type="text" readonly required>
-      <label class="request-label" for="requestText">اكتب طلبك</label>
-      <input id="requestText" class="request-input" type="text" placeholder="مثال: أريد هذه اللعبة" required maxlength="300">
-      <label class="request-label" for="customerPhone">رقم هاتفك</label>
-      <input id="customerPhone" class="request-input" type="tel" inputmode="tel" placeholder="07xxxxxxxxx" required maxlength="20">
-      <div class="request-buttons">
-        <button type="button" class="request-cancel" id="closeRequest">إلغاء</button>
-        <button type="submit" class="request-send">إرسال عبر واتساب</button>
-      </div>
-    </form>
-  </div>
-</div>
+<body>
 
-<footer>
-© 2026 Hexor Live - جميع الحقوق محفوظة
-</footer>
-<script>
-(function(){
-  "use strict";
-  const SOURCE_URL = "https://pspkg.com/ar/arabic-games/?filters%5B%5D=ps4";
-  const WHATSAPP_NUMBER = "9647712082333";
-  const PROXIES = [
-    url => "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
-    url => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(url),
-    url => "https://corsproxy.io/?url=" + encodeURIComponent(url)
-  ];
+    <!-- Header -->
+    <header>
+        <div class="logo-area">
+            <i class="fa-brands fa-playstation fa-2x" style="color: #0070d1;"></i>
+            <h1>PS4 الألعاب المعربة</h1>
+        </div>
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="ابحث عن لعبة... (مثال: Watch Dogs)" onkeyup="filterGames()">
+        </div>
+    </header>
 
-  const grid = document.getElementById("gamesGrid");
-  const statusBox = document.getElementById("gamesStatus");
-  const countBox = document.getElementById("gamesCount");
-  const searchBox = document.getElementById("gamesSearch");
-  const modal = document.getElementById("requestModal");
-  const gameInput = document.getElementById("requestedGame");
-  const form = document.getElementById("gameRequestForm");
-  let allGames = [];
+    <!-- Games Grid -->
+    <div class="container" id="gamesContainer">
+        <!-- سيتم حقن الألعاب هنا بواسطة الجافاسكريبت -->
+    </div>
 
-  function cleanText(value){
-    return (value || "").replace(/\s+/g, " ").replace(/[\u200e\u200f]/g, "").trim();
-  }
-  function absoluteUrl(value){
-    try { return new URL(value, "https://pspkg.com").href; } catch(e){ return ""; }
-  }
-  function isUsefulTitle(title){
-    const t = cleanText(title);
-    if(t.length < 2 || t.length > 130) return false;
-    return !/^(الرئيسية|الألعاب|العاب|ps4|تحميل|تسجيل الدخول|القائمة|بحث|التالي|السابق)$/i.test(t);
-  }
-  function extractGames(markup){
-    const doc = new DOMParser().parseFromString(markup, "text/html");
-    const candidates = [];
-    const seen = new Set();
+    <!-- Modal (نافذة الطلب) -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>طلب اللعبة</h2>
+                <button class="btn-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <form id="orderForm" onsubmit="sendToWhatsApp(event)">
+                <div class="form-group">
+                    <label for="gameNameInput">اسم اللعبة</label>
+                    <!-- الحقل الأول: اسم اللعبة (يتم تعبئته تلقائياً) -->
+                    <input type="text" id="gameNameInput" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="userMessage">الرسالة (نص يكتبه الشخص)</label>
+                    <!-- الحقل الثاني: نص يكتبه الشخص -->
+                    <textarea id="userMessage" rows="2" placeholder="مثال: أريد هذه اللعبة من فضلك" required>أريد هذه اللعبة من فضلك</textarea>
+                </div>
 
-    // PSPKG may change its card classes; use linked cover images as the stable signal.
-    doc.querySelectorAll("a").forEach(a => {
-      const img = a.querySelector("img");
-      if(!img) return;
-      const href = absoluteUrl(a.getAttribute("href") || "");
-      const image = absoluteUrl(img.getAttribute("data-src") || img.getAttribute("data-lazy-src") || img.getAttribute("src") || "");
-      const title = cleanText(
-        a.getAttribute("title") || img.getAttribute("alt") ||
-        a.querySelector("h2,h3,h4,.title,.name")?.textContent ||
-        a.textContent
-      );
-      if(!href || !image || !isUsefulTitle(title)) return;
-      if(!/pspkg\.com/i.test(href)) return;
-      if(/logo|avatar|icon|banner|placeholder/i.test(image)) return;
-      if(/\/(category|tag|author|page)\//i.test(href)) return;
-      const key = href;
-      if(seen.has(key)) return;
-      seen.add(key);
-      candidates.push({title, image, url:href});
-    });
+                <div class="form-group">
+                    <label for="phoneNumber">رقم الهاتف</label>
+                    <!-- الحقل الثالث: رقم الهاتف -->
+                    <input type="tel" id="phoneNumber" placeholder="مثال: 077XXXXXXXX" required>
+                </div>
 
-    // Keep game-like links only; header and footer images are generally outside the results region.
-    return candidates.filter(g => {
-      try {
-        const u = new URL(g.url);
-        return u.pathname !== "/" && !/wp-content|wp-login|cart|account/i.test(u.pathname);
-      } catch(e){ return false; }
-    });
-  }
-  function render(list){
-    grid.innerHTML = "";
-    countBox.textContent = "عدد الألعاب المعروضة: " + list.length;
-    if(!list.length){
-      grid.innerHTML = '<div class="games-state" style="grid-column:1/-1">لا توجد نتائج مطابقة لبحثك.</div>';
-      return;
-    }
-    const fragment = document.createDocumentFragment();
-    list.forEach(game => {
-      const card = document.createElement("article");
-      card.className = "game-card";
-      const img = document.createElement("img");
-      img.className = "game-cover";
-      img.loading = "lazy";
-      img.alt = game.title;
-      img.src = game.image;
-      img.onerror = function(){ this.style.visibility = "hidden"; this.style.height = "0"; };
-      const info = document.createElement("div");
-      info.className = "game-info";
-      const title = document.createElement("div");
-      title.className = "game-title";
-      title.textContent = game.title;
-      const actions = document.createElement("div");
-      actions.className = "game-actions";
-      const source = document.createElement("a");
-      source.className = "game-source";
-      source.href = game.url;
-      source.target = "_blank";
-      source.rel = "noopener";
-      source.textContent = "التفاصيل";
-      const add = document.createElement("button");
-      add.className = "game-add";
-      add.type = "button";
-      add.textContent = "إضافة";
-      add.addEventListener("click", () => openRequest(game.title));
-      actions.append(source, add);
-      info.append(title, actions);
-      card.append(img, info);
-      fragment.append(card);
-    });
-    grid.append(fragment);
-  }
-  function openRequest(title){
-    gameInput.value = title;
-    document.getElementById("requestText").value = "أريد هذه اللعبة";
-    modal.classList.add("open");
-    document.getElementById("requestText").focus();
-  }
-  function closeRequest(){ modal.classList.remove("open"); }
-  document.getElementById("closeRequest").addEventListener("click", closeRequest);
-  modal.addEventListener("click", e => { if(e.target === modal) closeRequest(); });
-  document.addEventListener("keydown", e => { if(e.key === "Escape") closeRequest(); });
-  searchBox.addEventListener("input", () => {
-    const q = cleanText(searchBox.value).toLocaleLowerCase();
-    render(allGames.filter(g => g.title.toLocaleLowerCase().includes(q)));
-  });
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    const game = cleanText(gameInput.value);
-    const request = cleanText(document.getElementById("requestText").value);
-    const phone = cleanText(document.getElementById("customerPhone").value);
-    if(!game || !request || !phone){ alert("يرجى إكمال جميع الحقول."); return; }
-    if(!/^[0-9+\s()-]{7,20}$/.test(phone)){ alert("يرجى إدخال رقم هاتف صحيح."); return; }
-    const message = [
-      "🎮 طلب لعبة جديدة",
-      "",
-      "اسم اللعبة: " + game,
-      "الطلب: " + request,
-      "رقم هاتف الزبون: " + phone,
-      "",
-      "المصدر: موقع Hexor"
-    ].join("\n");
-    window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message), "_blank", "noopener");
-    closeRequest();
-  });
+                <button type="submit" class="btn-submit">
+                    <i class="fa-brands fa-whatsapp fa-lg"></i>
+                    إرسال الطلب عبر واتساب
+                </button>
+            </form>
+        </div>
+    </div>
 
-  async function loadFromProxy(proxyBuilder){
-    const response = await fetch(proxyBuilder(SOURCE_URL), {cache:"no-store"});
-    if(!response.ok) throw new Error("HTTP " + response.status);
-    const body = await response.text();
-    if(!body || body.length < 500) throw new Error("Empty source response");
-    return body;
-  }
-  async function loadGames(){
-    let lastError;
-    for(const proxy of PROXIES){
-      try{
-        const markup = await loadFromProxy(proxy);
-        const games = extractGames(markup);
-        if(games.length < 2) throw new Error("Could not identify game cards");
-        allGames = games;
-        statusBox.style.display = "none";
-        render(allGames);
-        return;
-      }catch(error){ lastError = error; }
-    }
-    statusBox.innerHTML = 'تعذر تحميل قائمة الألعاب تلقائياً حالياً.<br><a class="btn" href="' +
-      SOURCE_URL + '" target="_blank" rel="noopener">تصفح ألعاب PS4 في PSPKG</a>';
-    countBox.textContent = "مصدر الألعاب: PSPKG";
-    console.warn("PSPKG games load failed:", lastError);
-  }
-  loadGames();
-})();
-</script>
+    <script>
+        // قائمة الألعاب (يمكنك إضافة المزيد هنا)
+        const gamesData = [
+            { title: "Assassins Creed Mirage", rating: "4.3", downloads: "110,721", image: "", badges: ["جديدة", "شائعة", "مترجمة"] },
+            { title: "Watch Dogs", rating: "4.4", downloads: "1,779", image: "", badges: ["جديدة", "شائعة", "قوائم عربية"] },
+            { title: "Call of Duty Black Ops Cold War", rating: "4.3", downloads: "19,782", image: "", badges: ["شائعة", "مترجمة"] },
+            { title: "Ghost of Tsushima Directors Cut", rating: "4.3", downloads: "82,551", image: "", badges: ["شائعة", "مترجمة"] },
+            { title: "Red Dead Redemption 2", rating: "4.4", downloads: "269,521", image: "", badges: ["شائعة", "معربة"] },
+            { title: "The last of us Remastered", rating: "4.4", downloads: "145,438", image: "", badges: ["شائعة"] },
+            { title: "EA Sports FC 27", rating: "4.3", downloads: "144,911", image: "", badges: ["شائعة"] },
+            { title: "Little Nightmares 2", rating: "4.3", downloads: "23,967", image: "", badges: ["شائعة", "مترجمة"] },
+            { title: "Mafia Definitive Edition", rating: "3.7", downloads: "31,739", image: "", badges: ["شائعة", "مترجمة"] },
+            { title: "Stray", rating: "4.3", downloads: "32,584", image: "", badges: ["شائعة", "معربة"] }
+        ];
 
+        const container = document.getElementById('gamesContainer');
+        const searchInput = document.getElementById('searchInput');
+        const modal = document.getElementById('orderModal');
+        const gameNameInput = document.getElementById('gameNameInput');
+        const phoneNumberInput = document.getElementById('phoneNumber');
+        const userMessageInput = document.getElementById('userMessage');
+
+        // دالة لعرض الألعاب
+        function renderGames(games) {
+            container.innerHTML = '';
+            
+            if (games.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-gamepad fa-3x mb-3"></i><br>لم يتم العثور على ألعاب مطابقة للبحث</div>';
+                return;
+            }
+
+            games.forEach(game => {
+                // إنشاء شارات (Badges)
+                let badgesHtml = '';
+                game.badges.forEach(badge => {
+                    let badgeClass = 'new';
+                    if (badge === 'شائعة') badgeClass = 'popular';
+                    if (badge === 'مترجمة' || badge.includes('عربية')) badgeClass = 'translated';
+                    badgesHtml += `<span class="badge ${badgeClass}">${badge}</span>`;
+                });
+
+                // في حال عدم وجود صورة، نستخدم صورة افتراضية
+                let imgUrl = game.image || `https://via.placeholder.com/300x400/2a2a2a/ffffff?text=${encodeURIComponent(game.title)}`;
+
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.innerHTML = `
+                    <div class="game-image">
+                        <img src="${imgUrl}" alt="${game.title}" loading="lazy">
+                        <div class="badges">${badgesHtml}</div>
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title" title="${game.title}">${game.title}</h3>
+                        <div class="game-stats">
+                            <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
+                            <span class="downloads"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
+                        </div>
+                        <button class="btn-add" onclick="openModal('${game.title.replace(/'/g, "\\'")}')">
+                            <i class="fa-solid fa-cart-plus"></i> إضافة (طلب)
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // دالة البحث
+        function filterGames() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const filteredGames = gamesData.filter(game => 
+                game.title.toLowerCase().includes(searchTerm)
+            );
+            renderGames(filteredGames);
+        }
+
+        // فتح النافذة المنبثقة
+        function openModal(gameTitle) {
+            gameNameInput.value = gameTitle;
+            modal.classList.add('active');
+            // إعادة تعيين حقول الإدخال
+            phoneNumberInput.value = '';
+            userMessageInput.value = 'أريد هذه اللعبة من فضلك';
+            // التركيز على حقل رقم الهاتف
+            setTimeout(() => phoneNumberInput.focus(), 100);
+        }
+
+        // إغلاق النافذة المنبثقة
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+
+        // إغلاق النافذة عند النقر خارجها
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // إرسال البيانات إلى الواتساب
+        function sendToWhatsApp(event) {
+            event.preventDefault(); // منع إعادة تحميل الصفحة
+
+            const gameName = gameNameInput.value;
+            const userMessage = userMessageInput.value;
+            const phoneNumber = phoneNumberInput.value;
+
+            // التحقق من المدخلات
+            if (!phoneNumber || !userMessage) {
+                alert('يرجى تعبئة جميع الحقول المطلوبة!');
+                return;
+            }
+
+            // ⚠️ هام: ضع رقم الواتساب الخاص بك هنا بالصيغة الدولية (بدون أصفار أو +)
+            // رقمك: 07712082333 -> يتحول إلى 9647712082333 (بافتراض أنك في العراق)
+            const myWhatsAppNumber = "9647712082333"; 
+
+            // تجهيز نص الرسالة
+            const message = `مرحباً، لدي طلب لعبة:\n\n` +
+                            `🎮 *اسم اللعبة:* ${gameName}\n` +
+                            `💬 *الرسالة:* ${userMessage}\n` +
+                            `📱 *رقم الهاتف:* ${phoneNumber}`;
+
+            // تشفير النص ليتناسب مع الروابط
+            const encodedMessage = encodeURIComponent(message);
+
+            // إنشاء رابط الواتساب
+            const whatsappUrl = `https://wa.me/${myWhatsAppNumber}?text=${encodedMessage}`;
+
+            // فتح الرابط في نافذة جديدة
+            window.open(whatsappUrl, '_blank');
+            
+            // إغلاق النافذة بعد الإرسال
+            closeModal();
+        }
+
+        // تشغيل العرض الأولي عند تحميل الصفحة
+        window.onload = () => {
+            renderGames(gamesData);
+        };
+    </script>
 </body>
 </html>
