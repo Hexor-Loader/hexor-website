@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ألعاب PS4 المعربة</title>
-    <!-- استدعاء خط Cairo من جوجل -->
+    <!-- استدعاء خط Cairo -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- استدعاء أيقونات FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -37,7 +37,7 @@
         /* Header & Search */
         header {
             background-color: #111;
-            padding: 15px 20px;
+            padding: 15px;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -55,7 +55,7 @@
         }
 
         .logo-area h1 {
-            font-size: 24px;
+            font-size: 20px;
             color: var(--primary-color);
         }
 
@@ -90,62 +90,60 @@
             color: var(--text-muted);
         }
 
-        /* Games Grid */
+        /* Games Grid (تم تعديلها لتظهر عمودين في الهاتف) */
         .container {
             max-width: 1200px;
             margin: 20px auto;
-            padding: 0 15px;
+            padding: 0 10px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* تصغير العرض الأدنى ليتناسب مع الهاتف */
+            gap: 12px;
         }
 
         /* Game Card */
         .game-card {
             background-color: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
             position: relative;
             display: flex;
             flex-direction: column;
+            border: 1px solid #222;
         }
 
         .game-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.6);
         }
 
         .game-image {
             width: 100%;
-            height: 250px;
-            background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+            aspect-ratio: 3 / 4; /* الحفاظ على نسبة أبعاد أغلفة الألعاب */
+            background: #2a2a2a;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #444;
         }
 
         .game-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .badges {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 8px;
+            right: 8px;
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 4px;
             z-index: 10;
         }
 
         .badge {
-            font-size: 10px;
-            padding: 3px 8px;
+            font-size: 9px;
+            padding: 2px 6px;
             border-radius: 4px;
             font-weight: bold;
             color: white;
@@ -154,29 +152,35 @@
         .badge.new { background-color: var(--danger-color); }
         .badge.popular { background-color: var(--warning-color); }
         .badge.translated { background-color: #9b59b6; }
+        .badge.arabic { background-color: #2980b9; }
 
         .game-info {
-            padding: 15px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
         }
 
         .game-title {
-            font-size: 16px;
+            font-size: 13px;
             font-weight: 700;
-            margin-bottom: 10px;
-            white-space: nowrap;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            /* إظهار سطرين كحد أقصى للعنوان */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
+            height: 36px; 
         }
 
         .game-stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            font-size: 13px;
+            margin-bottom: 10px;
+            font-size: 11px;
             color: var(--text-muted);
         }
 
@@ -185,37 +189,38 @@
         .btn-add {
             margin-top: auto;
             background-color: var(--primary-color);
-            color: #fff;
+            color: #111;
             border: none;
-            padding: 10px;
+            padding: 8px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 5px;
             transition: 0.3s;
         }
 
         .btn-add:hover {
             background-color: #27ae60;
+            color: #fff;
         }
 
-        /* Modal */
+        /* Modal (نافذة الطلب) */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.85);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
         }
 
         .modal-overlay.active {
@@ -248,7 +253,7 @@
         }
 
         .modal-header h2 {
-            font-size: 20px;
+            font-size: 18px;
             color: var(--primary-color);
         }
 
@@ -256,7 +261,7 @@
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
             transition: 0.3s;
         }
@@ -271,14 +276,14 @@
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
+            margin-bottom: 6px;
+            font-size: 13px;
             color: var(--text-color);
         }
 
         .form-group input, .form-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border-radius: 6px;
             border: 1px solid #444;
             background-color: #222;
@@ -301,11 +306,11 @@
         .btn-submit {
             width: 100%;
             padding: 12px;
-            background-color: #25D366; /* WhatsApp Color */
+            background-color: #25D366;
             color: white;
             border: none;
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
             display: flex;
@@ -326,7 +331,7 @@
             text-align: center;
             padding: 50px;
             color: var(--text-muted);
-            font-size: 18px;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -346,10 +351,10 @@
 
     <!-- Games Grid -->
     <div class="container" id="gamesContainer">
-        <!-- سيتم حقن الألعاب هنا بواسطة الجافاسكريبت -->
+        <!-- سيتم حقن الألعاب هنا -->
     </div>
 
-    <!-- Modal (نافذة الطلب) -->
+    <!-- Modal -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -360,19 +365,16 @@
             <form id="orderForm" onsubmit="sendToWhatsApp(event)">
                 <div class="form-group">
                     <label for="gameNameInput">اسم اللعبة</label>
-                    <!-- الحقل الأول: اسم اللعبة (يتم تعبئته تلقائياً) -->
                     <input type="text" id="gameNameInput" readonly>
                 </div>
                 
                 <div class="form-group">
-                    <label for="userMessage">الرسالة (نص يكتبه الشخص)</label>
-                    <!-- الحقل الثاني: نص يكتبه الشخص -->
-                    <textarea id="userMessage" rows="2" placeholder="مثال: أريد هذه اللعبة من فضلك" required>أريد هذه اللعبة من فضلك</textarea>
+                    <label for="userMessage">الرسالة</label>
+                    <textarea id="userMessage" rows="2" required>أريد هذه اللعبة من فضلك</textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="phoneNumber">رقم الهاتف</label>
-                    <!-- الحقل الثالث: رقم الهاتف -->
                     <input type="tel" id="phoneNumber" placeholder="مثال: 077XXXXXXXX" required>
                 </div>
 
@@ -385,18 +387,30 @@
     </div>
 
     <script>
-        // قائمة الألعاب (يمكنك إضافة المزيد هنا)
+        // قائمة الألعاب المحدثة مع الصور الحقيقية 
         const gamesData = [
-            { title: "Assassins Creed Mirage", rating: "4.3", downloads: "110,721", image: "", badges: ["جديدة", "شائعة", "مترجمة"] },
-            { title: "Watch Dogs", rating: "4.4", downloads: "1,779", image: "", badges: ["جديدة", "شائعة", "قوائم عربية"] },
-            { title: "Call of Duty Black Ops Cold War", rating: "4.3", downloads: "19,782", image: "", badges: ["شائعة", "مترجمة"] },
-            { title: "Ghost of Tsushima Directors Cut", rating: "4.3", downloads: "82,551", image: "", badges: ["شائعة", "مترجمة"] },
-            { title: "Red Dead Redemption 2", rating: "4.4", downloads: "269,521", image: "", badges: ["شائعة", "معربة"] },
-            { title: "The last of us Remastered", rating: "4.4", downloads: "145,438", image: "", badges: ["شائعة"] },
-            { title: "EA Sports FC 27", rating: "4.3", downloads: "144,911", image: "", badges: ["شائعة"] },
-            { title: "Little Nightmares 2", rating: "4.3", downloads: "23,967", image: "", badges: ["شائعة", "مترجمة"] },
-            { title: "Mafia Definitive Edition", rating: "3.7", downloads: "31,739", image: "", badges: ["شائعة", "مترجمة"] },
-            { title: "Stray", rating: "4.3", downloads: "32,584", image: "", badges: ["شائعة", "معربة"] }
+            { title: "Red Dead Redemption 2", rating: "4.4", downloads: "269,521", image: "https://upload.wikimedia.org/wikipedia/en/4/44/Red_Dead_Redemption_II.jpg", badges: ["شائعة", "معربة"] },
+            { title: "Assassins Creed Mirage", rating: "4.3", downloads: "110,721", image: "https://upload.wikimedia.org/wikipedia/en/4/4e/Assassin%27s_Creed_Mirage_cover.jpeg", badges: ["جديدة", "شائعة", "مترجمة"] },
+            { title: "Watch Dogs", rating: "4.4", downloads: "1,779", image: "https://upload.wikimedia.org/wikipedia/en/c/c1/Watch_Dogs_box_art.jpg", badges: ["جديدة", "شائعة", "قوائم عربية"] },
+            { title: "Call of Duty Black Ops Cold War", rating: "4.3", downloads: "19,782", image: "https://upload.wikimedia.org/wikipedia/en/1/1a/Call_of_Duty_Black_Ops_Cold_War_cover_art.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "God of War Ragnarök", rating: "4.1", downloads: "109,495", image: "https://upload.wikimedia.org/wikipedia/en/e/ee/God_of_War_Ragnar%C3%B6k_cover.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "The last of us Remastered", rating: "4.4", downloads: "145,438", image: "https://upload.wikimedia.org/wikipedia/en/1/19/The_Last_of_Us_Remastered_cover.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "EA Sports FC 27", rating: "4.3", downloads: "144,911", image: "https://placehold.co/300x400/1a1a1a/ffffff?text=EA+FC+27", badges: ["شائعة"] },
+            { title: "Ghost of Tsushima Directors Cut", rating: "4.3", downloads: "82,551", image: "https://upload.wikimedia.org/wikipedia/en/2/23/Ghost_of_Tsushima_cover_art.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Mafia Definitive Edition", rating: "3.7", downloads: "31,739", image: "https://upload.wikimedia.org/wikipedia/en/3/3c/Mafia_Definitive_Edition_cover.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Stray", rating: "4.3", downloads: "32,584", image: "https://upload.wikimedia.org/wikipedia/en/9/94/Stray_cover_art.jpg", badges: ["شائعة", "معربة"] },
+            { title: "Hitman 3", rating: "4.7", downloads: "3,492", image: "https://upload.wikimedia.org/wikipedia/en/8/82/Hitman_3_cover_art.jpg", badges: ["جديدة", "شائعة", "قوائم عربية"] },
+            { title: "Marvel’s Spider-Man", rating: "4.1", downloads: "121,575", image: "https://upload.wikimedia.org/wikipedia/en/e/e1/Spider-Man_PS4_cover.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Resident Evil 4 Remake Gold Edition", rating: "4.9", downloads: "118,137", image: "https://upload.wikimedia.org/wikipedia/en/1/1f/Resident_Evil_4_Remake_cover_art.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Elden Ring: Shadow of the Erdtree", rating: "4.5", downloads: "129,728", image: "https://upload.wikimedia.org/wikipedia/en/5/5a/Elden_Ring_Shadow_of_the_Erdtree_cover.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Little Nightmares 2", rating: "4.3", downloads: "23,967", image: "https://upload.wikimedia.org/wikipedia/en/9/91/Little_Nightmares_II_cover_art.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Tekken 7 Ultimate Edition", rating: "4.5", downloads: "18,000", image: "https://upload.wikimedia.org/wikipedia/en/1/1d/Tekken_7_cover.jpg", badges: ["شائعة", "معربة"] },
+            { title: "The Elder Scrolls V Skyrim Special Edition", rating: "3.2", downloads: "5,485", image: "https://upload.wikimedia.org/wikipedia/en/1/15/The_Elder_Scrolls_V_Skyrim_cover.png", badges: ["شائعة", "مترجمة"] },
+            { title: "Darksiders 3", rating: "1.8", downloads: "2,567", image: "https://upload.wikimedia.org/wikipedia/en/9/96/Darksiders_III_cover_art.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Dragon Ball Z Kakarot", rating: "4.6", downloads: "18,583", image: "https://upload.wikimedia.org/wikipedia/en/4/4c/Dragon_Ball_Z_Kakarot_cover.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Kena Bridge of Spirits", rating: "3.7", downloads: "10,232", image: "https://upload.wikimedia.org/wikipedia/en/3/37/Kena_Bridge_of_Spirits_cover_art.jpg", badges: ["شائعة", "ترجمة قوائم"] },
+            { title: "Mafia 2 Definitive Edition", rating: "4.3", downloads: "16,237", image: "https://upload.wikimedia.org/wikipedia/en/3/36/Mafia_II_Definitive_Edition_cover.jpg", badges: ["شائعة", "مترجمة"] },
+            { title: "Little Nightmares", rating: "4.1", downloads: "32,966", image: "https://upload.wikimedia.org/wikipedia/en/7/7a/Little_Nightmares_cover_art.jpg", badges: ["شائعة", "معربة"] }
         ];
 
         const container = document.getElementById('gamesContainer');
@@ -411,32 +425,32 @@
             container.innerHTML = '';
             
             if (games.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-gamepad fa-3x mb-3"></i><br>لم يتم العثور على ألعاب مطابقة للبحث</div>';
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-gamepad fa-3x mb-3" style="margin-bottom:10px;"></i><br>لم يتم العثور على ألعاب مطابقة</div>';
                 return;
             }
 
             games.forEach(game => {
-                // إنشاء شارات (Badges)
                 let badgesHtml = '';
                 game.badges.forEach(badge => {
                     let badgeClass = 'new';
                     if (badge === 'شائعة') badgeClass = 'popular';
-                    if (badge === 'مترجمة' || badge.includes('عربية')) badgeClass = 'translated';
+                    if (badge === 'مترجمة') badgeClass = 'translated';
+                    if (badge.includes('عربية')) badgeClass = 'arabic';
                     badgesHtml += `<span class="badge ${badgeClass}">${badge}</span>`;
                 });
 
-                // في حال عدم وجود صورة، نستخدم صورة افتراضية
-                let imgUrl = game.image || `https://via.placeholder.com/300x400/2a2a2a/ffffff?text=${encodeURIComponent(game.title)}`;
+                // في حال فشل تحميل صورة اللعبة، يتم استبدالها بصورة افتراضية
+                const fallbackImage = `https://placehold.co/300x400/2a2a2a/ffffff?text=${encodeURIComponent(game.title)}`;
 
                 const card = document.createElement('div');
                 card.className = 'game-card';
                 card.innerHTML = `
                     <div class="game-image">
-                        <img src="${imgUrl}" alt="${game.title}" loading="lazy">
+                        <img src="${game.image}" alt="${game.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
                         <div class="badges">${badgesHtml}</div>
                     </div>
                     <div class="game-info">
-                        <h3 class="game-title" title="${game.title}">${game.title}</h3>
+                        <h3 class="game-title">${game.title}</h3>
                         <div class="game-stats">
                             <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
                             <span class="downloads"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
@@ -459,67 +473,53 @@
             renderGames(filteredGames);
         }
 
-        // فتح النافذة المنبثقة
+        // فتح النافذة
         function openModal(gameTitle) {
             gameNameInput.value = gameTitle;
             modal.classList.add('active');
-            // إعادة تعيين حقول الإدخال
             phoneNumberInput.value = '';
             userMessageInput.value = 'أريد هذه اللعبة من فضلك';
-            // التركيز على حقل رقم الهاتف
             setTimeout(() => phoneNumberInput.focus(), 100);
         }
 
-        // إغلاق النافذة المنبثقة
+        // إغلاق النافذة
         function closeModal() {
             modal.classList.remove('active');
         }
 
-        // إغلاق النافذة عند النقر خارجها
         modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
+            if (e.target === modal) closeModal();
         });
 
-        // إرسال البيانات إلى الواتساب
+        // إرسال للواتساب
         function sendToWhatsApp(event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة
+            event.preventDefault();
 
             const gameName = gameNameInput.value;
             const userMessage = userMessageInput.value;
             const phoneNumber = phoneNumberInput.value;
 
-            // التحقق من المدخلات
             if (!phoneNumber || !userMessage) {
-                alert('يرجى تعبئة جميع الحقول المطلوبة!');
+                alert('يرجى تعبئة جميع الحقول!');
                 return;
             }
 
-            // ⚠️ هام: ضع رقم الواتساب الخاص بك هنا بالصيغة الدولية (بدون أصفار أو +)
-            // رقمك: 07712082333 -> يتحول إلى 9647712082333 (بافتراض أنك في العراق)
+            // ⚠️ ضع رقمك هنا (بصيغة دولية بدون أصفار أو +)
             const myWhatsAppNumber = "9647712082333"; 
 
-            // تجهيز نص الرسالة
             const message = `مرحباً، لدي طلب لعبة:\n\n` +
                             `🎮 *اسم اللعبة:* ${gameName}\n` +
                             `💬 *الرسالة:* ${userMessage}\n` +
                             `📱 *رقم الهاتف:* ${phoneNumber}`;
 
-            // تشفير النص ليتناسب مع الروابط
             const encodedMessage = encodeURIComponent(message);
-
-            // إنشاء رابط الواتساب
             const whatsappUrl = `https://wa.me/${myWhatsAppNumber}?text=${encodedMessage}`;
 
-            // فتح الرابط في نافذة جديدة
             window.open(whatsappUrl, '_blank');
-            
-            // إغلاق النافذة بعد الإرسال
             closeModal();
         }
 
-        // تشغيل العرض الأولي عند تحميل الصفحة
+        // التشغيل الأولي
         window.onload = () => {
             renderGames(gamesData);
         };
