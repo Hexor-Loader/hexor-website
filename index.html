@@ -47,9 +47,10 @@
             flex-direction: column;
             gap: 15px;
             align-items: center;
+            transition: all 0.3s ease; /* حركة ناعمة عند التصغير */
         }
 
-        /* تنسيق الجزء العلوي من الهيدر (اللوجو + معلومات المكتب) */
+        /* تنسيق الجزء العلوي من الهيدر */
         .header-top {
             width: 100%;
             max-width: 1200px;
@@ -58,6 +59,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
+            transition: all 0.3s ease;
         }
 
         .logo-area {
@@ -70,6 +72,7 @@
             font-size: 22px;
             color: var(--primary-color);
             margin: 0;
+            transition: font-size 0.3s ease;
         }
 
         /* تنسيق معلومات المكتب */
@@ -91,17 +94,8 @@
             gap: 8px;
         }
 
-        .shop-info i {
-            width: 16px;
-            text-align: center;
-        }
-
-        .shop-name {
-            color: #fff;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
+        .shop-info i { width: 16px; text-align: center; }
+        .shop-name { color: #fff; font-weight: bold; font-size: 14px; }
         .shop-name i { color: var(--warning-color); }
         .shop-phone a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
         .shop-phone i { color: var(--primary-color); }
@@ -111,6 +105,7 @@
             width: 100%;
             max-width: 600px;
             position: relative;
+            transition: all 0.3s ease;
         }
 
         .search-container input {
@@ -137,6 +132,31 @@
             transform: translateY(-50%);
             color: var(--text-muted);
         }
+
+        /* =========================================
+           التعديلات الجديدة عند التمرير للأسفل (Scrolled)
+           ========================================= */
+        header.scrolled {
+            padding: 10px 15px; /* تصغير الحواف */
+            gap: 0; /* إزالة الفراغات */
+        }
+
+        header.scrolled .header-top {
+            justify-content: center; /* توسيط اللوجو */
+        }
+
+        header.scrolled .shop-info {
+            display: none; /* إخفاء كارت المعلومات */
+        }
+
+        header.scrolled .search-container {
+            display: none; /* إخفاء شريط البحث */
+        }
+
+        header.scrolled .logo-area h1 {
+            font-size: 18px; /* تصغير الخط قليلاً */
+        }
+        /* ========================================= */
 
         /* Games Grid */
         .container {
@@ -234,12 +254,7 @@
             gap: 5px;
         }
 
-        .game-stats span {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
+        .game-stats span { display: flex; align-items: center; gap: 3px; }
         .rating i { color: var(--warning-color); }
         .size i { color: var(--accent-color); }
 
@@ -293,9 +308,7 @@
             backdrop-filter: blur(4px);
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
 
         .modal-content {
             background-color: var(--card-bg);
@@ -322,10 +335,7 @@
             padding-bottom: 10px;
         }
 
-        .modal-header h2 {
-            font-size: 18px;
-            color: var(--primary-color);
-        }
+        .modal-header h2 { font-size: 18px; color: var(--primary-color); }
 
         .btn-close {
             background: none;
@@ -336,13 +346,9 @@
             transition: 0.3s;
         }
 
-        .btn-close:hover {
-            color: var(--danger-color);
-        }
+        .btn-close:hover { color: var(--danger-color); }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
+        .form-group { margin-bottom: 15px; }
 
         .form-group label {
             display: block;
@@ -391,9 +397,7 @@
             margin-top: 10px;
         }
 
-        .btn-submit:hover {
-            background-color: #128C7E;
-        }
+        .btn-submit:hover { background-color: #128C7E; }
 
         .empty-state {
             grid-column: 1 / -1;
@@ -410,17 +414,14 @@
                 align-items: center;
                 text-align: center;
             }
-            .shop-info {
-                width: 100%;
-                align-items: center;
-            }
+            .shop-info { width: 100%; align-items: center; }
         }
     </style>
 </head>
 <body>
 
     <!-- Header -->
-    <header>
+    <header id="mainHeader">
         <div class="header-top">
             <!-- اسم الموقع -->
             <div class="logo-area">
@@ -534,7 +535,6 @@
 
                 const sizeNumber = parseInt(game.size) || 0;
                 
-                // حساب السعر
                 let calculatedPrice = "";
                 if (sizeNumber > 20) {
                     calculatedPrice = "2,000 د.ع";
@@ -623,8 +623,23 @@
             closeModal();
         }
 
+        // تشغيل الصفحة
         window.onload = () => {
             renderGames(gamesData);
+            
+            // === كود إخفاء الهيدر عند التمرير للأسفل ===
+            const header = document.getElementById('mainHeader');
+            
+            window.addEventListener('scroll', () => {
+                // إذا نزل المستخدم أكثر من 50 بكسل
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    // إذا رجع للأعلى
+                    header.classList.remove('scrolled');
+                }
+            });
+            // ==========================================
         };
     </script>
 </body>
