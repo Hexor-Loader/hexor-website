@@ -315,9 +315,9 @@
         }
 
         /* ألوان شارات الترجمة */
-        .badge.translated { background-color: #9b59b6; } /* مترجمة - بنفسجي */
-        .badge.arabic { background-color: #2980b9; } /* قوائم عربية/معربة - أزرق */
-        .badge.dubbed { background-color: #e74c3c; } /* مدبلجة - أحمر */
+        .badge.translated { background-color: #9b59b6; }
+        .badge.arabic { background-color: #2980b9; }
+        .badge.dubbed { background-color: #e74c3c; }
 
         .game-info {
             padding: 10px;
@@ -326,21 +326,38 @@
             flex-grow: 1;
         }
 
-        .game-title {
-            font-size: 13px;
-            font-weight: 700;
+        /* تعديل حاوية العنوان لدعم سطرين */
+        .game-title-container {
+            height: 42px; /* تثبيت الارتفاع للحفاظ على تناسق الكروت */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             margin-bottom: 8px;
             text-align: center;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            height: 36px; 
         }
 
-        /* تنسيق صف الإحصائيات (عاد كما كان) */
+        .title-ar {
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        .title-en {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+        }
+
+        /* تنسيق صف الإحصائيات */
         .game-stats {
             display: flex;
             justify-content: space-between;
@@ -353,7 +370,7 @@
         .game-stats span { display: flex; align-items: center; gap: 4px; }
         .rating i { color: var(--warning-color); }
 
-        /* تنسيق السعر في المنتصف (عاد كما كان مع إضافة كلمة السعر) */
+        /* تنسيق السعر */
         .game-price {
             font-size: 14px;
             font-weight: bold;
@@ -591,27 +608,28 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
+        // تم فصل الأسماء إلى titleAr (عربي) و titleEn (إنجليزي)
         const gamesData = [
-            { title: "واتش دوغز (Watch Dogs)", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
-            { title: "عقيدة الأساسنز: السراب (AC Mirage)", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["مترجمة"] },
-            { title: "نداء الواجب: الحرب الباردة (COD)", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["مترجمة"] },
-            { title: "هيتمان 3 (Hitman 3)", rating: "4.7", downloads: "3,492", size: "60 GB", image: baseURL + "hitman3.jpg", badges: ["قوائم عربية"] },
-            { title: "تحت الأمواج (Under The Waves)", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg", badges: ["مترجمة"] },
-            { title: "بندي وآلة الحبر (Bendy)", rating: "5.0", downloads: "913", size: "5 GB", image: baseURL + "bendy.jpg", badges: ["قوائم عربية"] },
-            { title: "توي ستوري 3 (Toy Story 3)", rating: "5.0", downloads: "3,298", size: "6 GB", image: baseURL + "toystory.jpg", badges: ["قوائم عربية"] },
-            { title: "دراغون بول زد كاكاروت (Dragon Ball Z)", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg", badges: ["مترجمة"] },
-            { title: "مارفل أفنجرز (Marvel's Avengers)", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg", badges: ["مدبلجة ومترجمة"] },
-            { title: "كينا: جسر الأرواح (Kena)", rating: "3.7", downloads: "10,232", size: "25 GB", image: baseURL + "kena.jpg", badges: ["قوائم عربية"] },
-            { title: "غوست تسوشيما (Ghost of Tsushima)", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg", badges: ["مترجمة"] },
-            { title: "الكوابيس الصغيرة (Little Nightmares)", rating: "4.1", downloads: "32,966", size: "10 GB", image: baseURL + "littlenightmares.jpg", badges: ["معربة"] },
-            { title: "الكوابيس الصغيرة 2 (Little Nightmares 2)", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg", badges: ["مترجمة"] },
-            { title: "الكوابيس الصغيرة 3 (Little Nightmares 3)", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg", badges: ["مترجمة"] },
-            { title: "مافيا النسخة النهائية (Mafia)", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg", badges: ["مترجمة"] },
-            { title: "مافيا 2 (Mafia II)", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg", badges: ["مترجمة"] },
-            { title: "ضال (Stray)", rating: "4.3", downloads: "32,584", size: "15 GB", image: baseURL + "stray.jpg", badges: ["معربة"] },
-            { title: "تيكن 7 (Tekken 7)", rating: "4.5", downloads: "18,000", size: "60 GB", image: baseURL + "tekken7.jpg", badges: ["معربة"] },
-            { title: "ذا إلدر سكرولز 5: سكايريم (Skyrim)", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["مترجمة"] },
-            { title: "داركسايدرز 3 (Darksiders 3)", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["مترجمة"] }
+            { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
+            { titleAr: "عقيدة الأساسنز: السراب", titleEn: "AC Mirage", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["مترجمة"] },
+            { titleAr: "نداء الواجب: الحرب الباردة", titleEn: "COD Cold War", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["مترجمة"] },
+            { titleAr: "هيتمان 3", titleEn: "Hitman 3", rating: "4.7", downloads: "3,492", size: "60 GB", image: baseURL + "hitman3.jpg", badges: ["قوائم عربية"] },
+            { titleAr: "تحت الأمواج", titleEn: "Under The Waves", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg", badges: ["مترجمة"] },
+            { titleAr: "بندي وآلة الحبر", titleEn: "Bendy", rating: "5.0", downloads: "913", size: "5 GB", image: baseURL + "bendy.jpg", badges: ["قوائم عربية"] },
+            { titleAr: "توي ستوري 3", titleEn: "Toy Story 3", rating: "5.0", downloads: "3,298", size: "6 GB", image: baseURL + "toystory.jpg", badges: ["قوائم عربية"] },
+            { titleAr: "دراغون بول زد كاكاروت", titleEn: "Dragon Ball Z", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg", badges: ["مترجمة"] },
+            { titleAr: "مارفل أفنجرز", titleEn: "Marvel's Avengers", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg", badges: ["مدبلجة ومترجمة"] },
+            { titleAr: "كينا: جسر الأرواح", titleEn: "Kena", rating: "3.7", downloads: "10,232", size: "25 GB", image: baseURL + "kena.jpg", badges: ["قوائم عربية"] },
+            { titleAr: "غوست تسوشيما", titleEn: "Ghost of Tsushima", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg", badges: ["مترجمة"] },
+            { titleAr: "الكوابيس الصغيرة", titleEn: "Little Nightmares", rating: "4.1", downloads: "32,966", size: "10 GB", image: baseURL + "littlenightmares.jpg", badges: ["معربة"] },
+            { titleAr: "الكوابيس الصغيرة 2", titleEn: "Little Nightmares 2", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg", badges: ["مترجمة"] },
+            { titleAr: "الكوابيس الصغيرة 3", titleEn: "Little Nightmares 3", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg", badges: ["مترجمة"] },
+            { titleAr: "مافيا النسخة النهائية", titleEn: "Mafia", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg", badges: ["مترجمة"] },
+            { titleAr: "مافيا 2", titleEn: "Mafia II", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg", badges: ["مترجمة"] },
+            { titleAr: "ضال", titleEn: "Stray", rating: "4.3", downloads: "32,584", size: "15 GB", image: baseURL + "stray.jpg", badges: ["معربة"] },
+            { titleAr: "تيكن 7", titleEn: "Tekken 7", rating: "4.5", downloads: "18,000", size: "60 GB", image: baseURL + "tekken7.jpg", badges: ["معربة"] },
+            { titleAr: "ذا إلدر سكرولز 5: سكايريم", titleEn: "Skyrim", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["مترجمة"] },
+            { titleAr: "داركسايدرز 3", titleEn: "Darksiders 3", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["مترجمة"] }
         ];
 
         const container = document.getElementById('gamesContainer');
@@ -656,7 +674,7 @@
                 const sizeNumber = parseInt(game.size) || 0;
                 let calculatedPrice = sizeNumber > 20 ? "2,000 د.ع" : "1,000 د.ع";
 
-                const fallbackImage = `https://placehold.co/300x400/1a1a1a/ffffff?text=${encodeURIComponent(game.title)}`;
+                const fallbackImage = `https://placehold.co/300x400/1a1a1a/ffffff?text=${encodeURIComponent(game.titleEn)}`;
 
                 let badgesHtml = '';
                 if (game.badges && game.badges.length > 0) {
@@ -672,23 +690,25 @@
                             <span>PS4</span>
                         </div>
                         
-                        <img src="${game.image}" class="cover" alt="${game.title}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
+                        <img src="${game.image}" class="cover" alt="${game.titleEn}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
                         
                         <div class="badges-bottom">${badgesHtml}</div>
                     </div>
                     <div class="game-info">
-                        <h3 class="game-title">${game.title}</h3>
+                        <!-- عرض الاسم العربي فوق والانجليزي تحت -->
+                        <div class="game-title-container">
+                            <span class="title-ar">${game.titleAr}</span>
+                            <span class="title-en">${game.titleEn}</span>
+                        </div>
                         
-                        <!-- عاد التقييم والتحميلات للشكل السابق -->
                         <div class="game-stats">
                             <span class="downloads"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
                             <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
                         </div>
 
-                        <!-- السعر عاد في المنتصف وتمت إضافة كلمة "السعر :" -->
                         <div class="game-price">السعر : ${calculatedPrice}</div>
 
-                        <button class="btn-add" onclick="openModal('${game.title.replace(/'/g, "\\'")}', '${game.size}', '${calculatedPrice}')">
+                        <button class="btn-add" onclick="openModal('${game.titleAr} (${game.titleEn})', '${game.size}', '${calculatedPrice}')">
                             <i class="fa-solid fa-cart-plus"></i> إضافة (طلب)
                         </button>
                     </div>
@@ -735,7 +755,8 @@
         function filterGames() {
             const searchTerm = searchInput.value.toLowerCase();
             const filteredGames = gamesData.filter(game => 
-                game.title.toLowerCase().includes(searchTerm)
+                game.titleAr.toLowerCase().includes(searchTerm) || 
+                game.titleEn.toLowerCase().includes(searchTerm)
             );
             currentPage = 1;
             renderGames(filteredGames);
