@@ -340,24 +340,30 @@
             height: 36px; 
         }
 
-        /* تنسيق صف الإحصائيات والسعر */
+        /* تنسيق صف الإحصائيات (عاد كما كان) */
         .game-stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-size: 12px;
             color: var(--text-muted);
         }
 
         .game-stats span { display: flex; align-items: center; gap: 4px; }
         .rating i { color: var(--warning-color); }
-        
-        /* تنسيق السعر على اليمين */
-        .price-tag {
-            color: var(--price-color) !important;
+
+        /* تنسيق السعر في المنتصف (عاد كما كان مع إضافة كلمة السعر) */
+        .game-price {
+            font-size: 14px;
             font-weight: bold;
-            font-size: 13px;
+            color: var(--price-color);
+            margin-bottom: 10px;
+            text-align: center;
+            background: rgba(241, 196, 15, 0.1);
+            padding: 6px;
+            border-radius: 6px;
+            border: 1px dashed rgba(241, 196, 15, 0.3);
         }
 
         .btn-add {
@@ -673,14 +679,14 @@
                     <div class="game-info">
                         <h3 class="game-title">${game.title}</h3>
                         
-                        <!-- شريط التقييم والسعر على اليمين -->
+                        <!-- عاد التقييم والتحميلات للشكل السابق -->
                         <div class="game-stats">
                             <span class="downloads"><i class="fa-solid fa-download"></i> ${game.downloads}</span>
-                            <div style="display:flex; gap: 8px; align-items:center;">
-                                <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
-                                <span class="price-tag">${calculatedPrice}</span>
-                            </div>
+                            <span class="rating"><i class="fa-solid fa-star"></i> ${game.rating}</span>
                         </div>
+
+                        <!-- السعر عاد في المنتصف وتمت إضافة كلمة "السعر :" -->
+                        <div class="game-price">السعر : ${calculatedPrice}</div>
 
                         <button class="btn-add" onclick="openModal('${game.title.replace(/'/g, "\\'")}', '${game.size}', '${calculatedPrice}')">
                             <i class="fa-solid fa-cart-plus"></i> إضافة (طلب)
