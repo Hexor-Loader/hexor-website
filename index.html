@@ -21,6 +21,7 @@
             --warning-color: #f39c12;
             --price-color: #f1c40f;
             --ps-blue: #0070d1;
+            --yt-red: #ff0000;
         }
 
         * {
@@ -315,9 +316,9 @@
         }
 
         /* ألوان شارات الترجمة */
-        .badge.translated { background-color: #9b59b6; } /* بنفسجي */
-        .badge.arabic { background-color: #2980b9; } /* أزرق */
-        .badge.dubbed { background-color: #e74c3c; } /* أحمر */
+        .badge.translated { background-color: #9b59b6; }
+        .badge.arabic { background-color: #2980b9; }
+        .badge.dubbed { background-color: #e74c3c; }
 
         .game-info {
             padding: 10px;
@@ -326,7 +327,6 @@
             flex-grow: 1;
         }
 
-        /* تعديل حاوية العنوان لدعم سطرين */
         .game-title-container {
             height: 42px; 
             display: flex;
@@ -357,7 +357,6 @@
             width: 100%;
         }
 
-        /* تنسيق صف الإحصائيات */
         .game-stats {
             display: flex;
             justify-content: space-between;
@@ -383,24 +382,44 @@
             border: 1px dashed rgba(241, 196, 15, 0.3);
         }
 
-        .btn-add {
+        /* =========================================
+           تنسيق أزرار الإضافة والمشاهدة
+           ========================================= */
+        .action-buttons {
+            display: flex;
+            gap: 6px;
             margin-top: auto;
-            background-color: var(--primary-color);
-            color: #111;
-            border: none;
-            padding: 8px;
+        }
+
+        .btn-add, .btn-watch {
+            flex: 1;
+            padding: 8px 4px;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 4px;
             transition: 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-add {
+            background-color: var(--primary-color);
+            color: #111;
         }
 
         .btn-add:hover { background-color: #27ae60; color: #fff; }
+
+        .btn-watch {
+            background-color: var(--yt-red);
+            color: #fff;
+        }
+
+        .btn-watch:hover { background-color: #cc0000; }
 
         /* =========================================
            الترقيم (Pagination)
@@ -608,7 +627,6 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
-        // قائمة الألعاب (تمت إضافة الألعاب العشرين الجديدة بناءً على أسماء صورك)
         const gamesData = [
             // الألعاب القديمة
             { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
@@ -703,6 +721,9 @@
                     badgesHtml = game.badges.map(b => `<span class="badge ${getBadgeClass(b)}">${b}</span>`).join('');
                 }
 
+                // إنشاء رابط بحث يوتيوب ديناميكي بناءً على اسم اللعبة الإنجليزي
+                const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(game.titleEn + ' PS4 gameplay trailer')}`;
+
                 const card = document.createElement('div');
                 card.className = 'game-card';
                 card.innerHTML = `
@@ -729,9 +750,16 @@
 
                         <div class="game-price">السعر : ${calculatedPrice}</div>
 
-                        <button class="btn-add" onclick="openModal('${game.titleAr} (${game.titleEn})', '${game.size}', '${calculatedPrice}')">
-                            <i class="fa-solid fa-cart-plus"></i> إضافة (طلب)
-                        </button>
+                        <!-- أزرار الإضافة والمشاهدة -->
+                        <div class="action-buttons">
+                            <button class="btn-add" onclick="openModal('${game.titleAr} (${game.titleEn})', '${game.size}', '${calculatedPrice}')">
+                                <i class="fa-solid fa-cart-plus"></i> إضافة
+                            </button>
+                            
+                            <a href="${youtubeSearchUrl}" target="_blank" class="btn-watch" title="شاهد فيديو اللعبة">
+                                <i class="fa-brands fa-youtube"></i> شاهد
+                            </a>
+                        </div>
                     </div>
                 `;
                 container.appendChild(card);
