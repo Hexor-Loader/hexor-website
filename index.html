@@ -681,7 +681,6 @@
             { titleAr: "الشر المقيم النسخة المحسنة", titleEn: "Resident Evil HD Remaster", rating: "1.8", downloads: "5,674", size: "20 GB", image: baseURL + "resident_evil_hd_remaster.jpg", badges: ["معربة", "ترجمة كاملة"], category: "مغامرة" },
             { titleAr: "نداء كثولو", titleEn: "Call of Cthulhu", rating: "5.0", downloads: "505", size: "15 GB", image: baseURL + "call_of_cthulhu.jpg", badges: ["معربة"], category: "مغامرة" },
             { titleAr: "أضواء تائهة", titleEn: "Strayed Lights", rating: "0.0", downloads: "745", size: "12 GB", image: baseURL + "strayed_lights.jpg", badges: ["معربة"], category: "مغامرة" },
-            // تم تصحيح الصور هنا
             { titleAr: "دبليو دبليو إي 2K22", titleEn: "WWE 2K22", rating: "3.7", downloads: "2,895", size: "60 GB", image: baseURL + "wwe_2k22.jpg", badges: ["معربة"], category: "رياضة" },
             { titleAr: "بيس 6 كأس العالم الكلاسيكي", titleEn: "PES 6 Classic World Cup", rating: "2.0", downloads: "6,730", size: "5 GB", image: baseURL + "pes_6_classic_world_cup.jpg", badges: ["معربة"], category: "رياضة" },
             { titleAr: "الجمرة المفقودة", titleEn: "Lost Ember", rating: "4.0", downloads: "856", size: "10 GB", image: baseURL + "lost_ember.jpg", badges: ["معربة"], category: "مغامرة" },
@@ -787,20 +786,22 @@
             paginatedGames.forEach(game => {
                 const sizeNumber = parseInt(game.size) || 0;
                 
-                // === نظام الأسعار الجديد ===
+                // === نظام الأسعار المخصص والمحدث ===
                 let calculatedPrice = "";
                 
                 if (game.titleEn === "Call of Duty: Modern Warfare II + III") {
-                    // استثناء خاص للعبة الحرب الحديثة المزدوجة
                     calculatedPrice = "5,000 د.ع";
+                } else if (game.titleEn === "Call of Duty: Black Ops III") {
+                    calculatedPrice = "3,000 د.ع";
+                } else if (game.titleEn === "Call of Duty: Black Ops II") {
+                    calculatedPrice = "2,000 د.ع";
+                } else if (game.titleEn === "COD Cold War") {
+                    calculatedPrice = "4,000 د.ع";
                 } else if (sizeNumber >= 100) {
-                    // الألعاب 100 جيجا وأكثر
                     calculatedPrice = "3,000 د.ع";
                 } else if (sizeNumber > 20) {
-                    // الألعاب أكبر من 20 جيجا
                     calculatedPrice = "2,000 د.ع";
                 } else {
-                    // الألعاب 20 جيجا أو أقل
                     calculatedPrice = "1,000 د.ع";
                 }
                 // ==========================
