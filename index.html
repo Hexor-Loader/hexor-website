@@ -205,7 +205,7 @@
         .shop-info-bar i { width: 16px; text-align: center; }
         .shop-info-bar .shop-phone a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
 
-        /* شريط الفلاتر */
+        /* شريط الفلاتر والفئات */
         .filter-bar {
             margin: 20px 15px 10px;
             display: flex;
@@ -234,6 +234,40 @@
             cursor: pointer;
         }
 
+        /* تنسيقات التصنيفات (Tabs) */
+        .tabs-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 0 15px 15px 15px;
+            scrollbar-width: none;
+        }
+        .tabs-container::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid #333;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .tab-btn:hover {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: #111;
+            border-color: var(--primary-color);
+        }
+
         /* شبكة الألعاب */
         .container {
             max-width: 1200px;
@@ -254,10 +288,9 @@
             border: 1px solid #222;
         }
 
-        /* تعديل قياس الصورة ليكون موحداً */
         .game-image {
             width: 100%;
-            aspect-ratio: 3 / 4; /* يفرض نفس الطول والعرض لجميع الصور */
+            aspect-ratio: 3 / 4;
             background: #2a2a2a;
             position: relative;
             overflow: hidden;
@@ -266,9 +299,8 @@
         .game-image img.cover {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* يملأ المساحة بدون تشوه */
+            object-fit: cover;
             display: block;
-            /* تم إزالة padding-top الذي كان يسبب الفراغ */
         }
 
         .badges-bottom {
@@ -551,6 +583,16 @@
         </div>
     </div>
 
+    <!-- شريط التصنيفات (Tabs) الجديد -->
+    <div class="tabs-container" id="tabsContainer">
+        <button class="tab-btn active" onclick="filterByCategory('الكل', this)">الكل</button>
+        <button class="tab-btn" onclick="filterByCategory('أكشن', this)">أكشن</button>
+        <button class="tab-btn" onclick="filterByCategory('حروب', this)">حروب</button>
+        <button class="tab-btn" onclick="filterByCategory('مغامرة', this)">مغامرة</button>
+        <button class="tab-btn" onclick="filterByCategory('رياضة', this)">رياضة</button>
+        <button class="tab-btn" onclick="filterByCategory('سباق', this)">سباق</button>
+    </div>
+
     <div class="container" id="gamesContainer"></div>
     <div class="pagination" id="pagination"></div>
 
@@ -583,93 +625,94 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
+        // تم إضافة حقل التصنيف (category) لكل لعبة
         const gamesData = [
             // ===== الصفحة 1 =====
-            { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "عقيدة الأساسنز: السراب", titleEn: "AC Mirage", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["معربة"] },
-            { titleAr: "نداء الواجب: الحرب الباردة", titleEn: "COD Cold War", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["معربة"] },
-            { titleAr: "هيتمان 3", titleEn: "Hitman 3", rating: "4.7", downloads: "3,492", size: "60 GB", image: baseURL + "hitman3.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "تحت الأمواج", titleEn: "Under The Waves", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg", badges: ["معربة"] },
-            { titleAr: "بندي وآلة الحبر", titleEn: "Bendy", rating: "5.0", downloads: "913", size: "5 GB", image: baseURL + "bendy.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "توي ستوري 3", titleEn: "Toy Story 3", rating: "5.0", downloads: "3,298", size: "6 GB", image: baseURL + "toystory.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "دراغون بول زد كاكاروت", titleEn: "Dragon Ball Z", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg", badges: ["معربة"] },
-            { titleAr: "مارفل أفنجرز", titleEn: "Marvel's Avengers", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg", badges: ["مدبلجة ومعربة"] },
-            { titleAr: "كينا: جسر الأرواح", titleEn: "Kena", rating: "3.7", downloads: "10,232", size: "25 GB", image: baseURL + "kena.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "غوست تسوشيما", titleEn: "Ghost of Tsushima", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg", badges: ["معربة"] },
-            { titleAr: "الكوابيس الصغيرة", titleEn: "Little Nightmares", rating: "4.1", downloads: "32,966", size: "10 GB", image: baseURL + "littlenightmares.jpg", badges: ["معربة"] },
-            { titleAr: "الكوابيس الصغيرة 2", titleEn: "Little Nightmares 2", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg", badges: ["معربة"] },
-            { titleAr: "الكوابيس الصغيرة 3", titleEn: "Little Nightmares 3", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg", badges: ["معربة"] },
-            { titleAr: "مافيا النسخة النهائية", titleEn: "Mafia", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg", badges: ["معربة"] },
-            { titleAr: "مافيا 2", titleEn: "Mafia II", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg", badges: ["معربة"] },
-            { titleAr: "ضال", titleEn: "Stray", rating: "4.3", downloads: "32,584", size: "15 GB", image: baseURL + "stray.jpg", badges: ["معربة"] },
-            { titleAr: "تيكن 7", titleEn: "Tekken 7", rating: "4.5", downloads: "18,000", size: "60 GB", image: baseURL + "tekken7.jpg", badges: ["معربة"] },
-            { titleAr: "ذا إلدر سكرولز 5: سكايريم", titleEn: "Skyrim", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["معربة"] },
-            { titleAr: "داركسايدرز 3", titleEn: "Darksiders 3", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["معربة"] },
+            { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"], category: "أكشن" },
+            { titleAr: "عقيدة الأساسنز: السراب", titleEn: "AC Mirage", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "نداء الواجب: الحرب الباردة", titleEn: "COD Cold War", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["معربة"], category: "حروب" },
+            { titleAr: "هيتمان 3", titleEn: "Hitman 3", rating: "4.7", downloads: "3,492", size: "60 GB", image: baseURL + "hitman3.jpg", badges: ["قوائم عربية"], category: "أكشن" },
+            { titleAr: "تحت الأمواج", titleEn: "Under The Waves", rating: "3.7", downloads: "3,478", size: "15 GB", image: baseURL + "underwaves.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "بندي وآلة الحبر", titleEn: "Bendy", rating: "5.0", downloads: "913", size: "5 GB", image: baseURL + "bendy.jpg", badges: ["قوائم عربية"], category: "مغامرة" },
+            { titleAr: "توي ستوري 3", titleEn: "Toy Story 3", rating: "5.0", downloads: "3,298", size: "6 GB", image: baseURL + "toystory.jpg", badges: ["قوائم عربية"], category: "مغامرة" },
+            { titleAr: "دراغون بول زد كاكاروت", titleEn: "Dragon Ball Z", rating: "4.6", downloads: "18,583", size: "35 GB", image: baseURL + "dragonball.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "مارفل أفنجرز", titleEn: "Marvel's Avengers", rating: "3.6", downloads: "12,450", size: "90 GB", image: baseURL + "avengers.jpg", badges: ["مدبلجة ومعربة"], category: "أكشن" },
+            { titleAr: "كينا: جسر الأرواح", titleEn: "Kena", rating: "3.7", downloads: "10,232", size: "25 GB", image: baseURL + "kena.jpg", badges: ["قوائم عربية"], category: "مغامرة" },
+            { titleAr: "غوست تسوشيما", titleEn: "Ghost of Tsushima", rating: "4.3", downloads: "82,551", size: "50 GB", image: baseURL + "ghost.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "الكوابيس الصغيرة", titleEn: "Little Nightmares", rating: "4.1", downloads: "32,966", size: "10 GB", image: baseURL + "littlenightmares.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "الكوابيس الصغيرة 2", titleEn: "Little Nightmares 2", rating: "4.3", downloads: "23,967", size: "15 GB", image: baseURL + "littlenightmares2.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "الكوابيس الصغيرة 3", titleEn: "Little Nightmares 3", rating: "4.0", downloads: "24,214", size: "20 GB", image: baseURL + "littlenightmares3.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "مافيا النسخة النهائية", titleEn: "Mafia", rating: "3.7", downloads: "31,739", size: "40 GB", image: baseURL + "mafia.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "مافيا 2", titleEn: "Mafia II", rating: "4.3", downloads: "16,237", size: "35 GB", image: baseURL + "mafia2.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "ضال", titleEn: "Stray", rating: "4.3", downloads: "32,584", size: "15 GB", image: baseURL + "stray.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "تيكن 7", titleEn: "Tekken 7", rating: "4.5", downloads: "18,000", size: "60 GB", image: baseURL + "tekken7.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "ذا إلدر سكرولز 5: سكايريم", titleEn: "Skyrim", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "داركسايدرز 3", titleEn: "Darksiders 3", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["معربة"], category: "أكشن" },
 
             // ===== الصفحة 2 =====
-            { titleAr: "واتش دوغز: الفيلق", titleEn: "Watch Dogs Legion", rating: "3.6", downloads: "7,323", size: "50 GB", image: baseURL + "watch_dogs_legion.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "الموتى السائرون: حدود جديدة", titleEn: "The Walking Dead: A New Frontier", rating: "4.0", downloads: "5,961", size: "25 GB", image: baseURL + "the_walking_dead_a_new_frontier.jpg", badges: ["معربة"] },
-            { titleAr: "سايلنت هيل 2", titleEn: "Silent Hill 2", rating: "5.0", downloads: "1,414", size: "35 GB", image: baseURL + "silent_hill_2.jpg", badges: ["قوائم وحوارات"] },
-            { titleAr: "ستيكس: شظايا الظلام", titleEn: "Styx: Shards of Darkness", rating: "1.0", downloads: "857", size: "18 GB", image: baseURL + "styx_shards_of_darkness.jpg", badges: ["معربة"] },
-            { titleAr: "تمرد: عاصفة رملية", titleEn: "Insurgency Sandstorm", rating: "0.0", downloads: "2,891", size: "40 GB", image: baseURL + "insurgency_sandstorm.jpg", badges: ["معربة"] },
-            { titleAr: "سيف شوان يوان 7", titleEn: "Xuan Yuan Sword 7", rating: "0.0", downloads: "980", size: "35 GB", image: baseURL + "xuan_yuan_sword_7.jpg", badges: ["معربة"] },
-            { titleAr: "داركسايدرز 2", titleEn: "Darksiders II", rating: "4.8", downloads: "5,120", size: "20 GB", image: baseURL + "darksiders2.jpg", badges: ["معربة"] },
-            { titleAr: "القتيل: الروح المشتبه بها", titleEn: "Murdered: Soul Suspect", rating: "4.0", downloads: "1,344", size: "18 GB", image: baseURL + "murdered_soul_suspect.jpg", badges: ["معربة"] },
-            { titleAr: "ماديسون", titleEn: "MADiSON", rating: "4.0", downloads: "3,345", size: "22 GB", image: baseURL + "madison.jpg", badges: ["معربة"] },
-            { titleAr: "تائه في راندوم", titleEn: "Lost in Random", rating: "1.5", downloads: "2,288", size: "22 GB", image: baseURL + "lost_in_random.jpg", badges: ["معربة"] },
-            { titleAr: "مثل التنين: ايشين", titleEn: "Like a Dragon: Ishin!", rating: "4.7", downloads: "2,446", size: "60 GB", image: baseURL + "like_a_dragon_ishin.jpg", badges: ["معربة"] },
-            { titleAr: "المعرفة قوة", titleEn: "Knowledge is Power", rating: "0.0", downloads: "1,393", size: "8 GB", image: baseURL + "knowledge_is_power.jpg", badges: ["معربة"] },
-            { titleAr: "كينغدوم كوم: الخلاص", titleEn: "Kingdom Come: Deliverance", rating: "4.8", downloads: "4,567", size: "55 GB", image: baseURL + "kingdom_come_deliverance.jpg", badges: ["معربة"] },
-            { titleAr: "قاتل محترف", titleEn: "Hitman", rating: "4.5", downloads: "35,356", size: "45 GB", image: baseURL + "hitman.jpg", badges: ["قوائم فقط"] },
-            { titleAr: "الجرينش: مغامرات عيد الميلاد", titleEn: "The Grinch: Christmas Adventures", rating: "0.0", downloads: "359", size: "6 GB", image: baseURL + "grinch_christmas_adventures.jpg", badges: ["معربة"] },
-            { titleAr: "فار: المد المتغير", titleEn: "Far: Changing Tides", rating: "0.0", downloads: "1,228", size: "8 GB", image: baseURL + "far_changing_tides.jpg", badges: ["معربة"] },
-            { titleAr: "جيلت", titleEn: "Gylt", rating: "0.0", downloads: "2,605", size: "15 GB", image: baseURL + "gylt.jpg", badges: ["معربة"] },
-            { titleAr: "دمر كل البشر: مجزرة المستنسخين", titleEn: "Destroy All Humans! Clone Carnage", rating: "4.5", downloads: "1,016", size: "20 GB", image: baseURL + "destroy_all_humans_clone_carnage.jpg", badges: ["معربة"] },
-            { titleAr: "إيكاي", titleEn: "Ikai", rating: "5.0", downloads: "1,009", size: "10 GB", image: baseURL + "ikai.jpg", badges: ["معربة"] },
-            { titleAr: "رأيت سحبا سوداء", titleEn: "I Saw Black Clouds", rating: "0.0", downloads: "909", size: "12 GB", image: baseURL + "i_saw_black_clouds.jpg", badges: ["معربة"] },
+            { titleAr: "واتش دوغز: الفيلق", titleEn: "Watch Dogs Legion", rating: "3.6", downloads: "7,323", size: "50 GB", image: baseURL + "watch_dogs_legion.jpg", badges: ["قوائم عربية"], category: "أكشن" },
+            { titleAr: "الموتى السائرون: حدود جديدة", titleEn: "The Walking Dead: A New Frontier", rating: "4.0", downloads: "5,961", size: "25 GB", image: baseURL + "the_walking_dead_a_new_frontier.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "سايلنت هيل 2", titleEn: "Silent Hill 2", rating: "5.0", downloads: "1,414", size: "35 GB", image: baseURL + "silent_hill_2.jpg", badges: ["قوائم وحوارات"], category: "مغامرة" },
+            { titleAr: "ستيكس: شظايا الظلام", titleEn: "Styx: Shards of Darkness", rating: "1.0", downloads: "857", size: "18 GB", image: baseURL + "styx_shards_of_darkness.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "تمرد: عاصفة رملية", titleEn: "Insurgency Sandstorm", rating: "0.0", downloads: "2,891", size: "40 GB", image: baseURL + "insurgency_sandstorm.jpg", badges: ["معربة"], category: "حروب" },
+            { titleAr: "سيف شوان يوان 7", titleEn: "Xuan Yuan Sword 7", rating: "0.0", downloads: "980", size: "35 GB", image: baseURL + "xuan_yuan_sword_7.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "داركسايدرز 2", titleEn: "Darksiders II", rating: "4.8", downloads: "5,120", size: "20 GB", image: baseURL + "darksiders2.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "القتيل: الروح المشتبه بها", titleEn: "Murdered: Soul Suspect", rating: "4.0", downloads: "1,344", size: "18 GB", image: baseURL + "murdered_soul_suspect.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "ماديسون", titleEn: "MADiSON", rating: "4.0", downloads: "3,345", size: "22 GB", image: baseURL + "madison.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "تائه في راندوم", titleEn: "Lost in Random", rating: "1.5", downloads: "2,288", size: "22 GB", image: baseURL + "lost_in_random.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "مثل التنين: ايشين", titleEn: "Like a Dragon: Ishin!", rating: "4.7", downloads: "2,446", size: "60 GB", image: baseURL + "like_a_dragon_ishin.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "المعرفة قوة", titleEn: "Knowledge is Power", rating: "0.0", downloads: "1,393", size: "8 GB", image: baseURL + "knowledge_is_power.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "كينغدوم كوم: الخلاص", titleEn: "Kingdom Come: Deliverance", rating: "4.8", downloads: "4,567", size: "55 GB", image: baseURL + "kingdom_come_deliverance.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "قاتل محترف", titleEn: "Hitman", rating: "4.5", downloads: "35,356", size: "45 GB", image: baseURL + "hitman.jpg", badges: ["قوائم فقط"], category: "أكشن" },
+            { titleAr: "الجرينش: مغامرات عيد الميلاد", titleEn: "The Grinch: Christmas Adventures", rating: "0.0", downloads: "359", size: "6 GB", image: baseURL + "grinch_christmas_adventures.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "فار: المد المتغير", titleEn: "Far: Changing Tides", rating: "0.0", downloads: "1,228", size: "8 GB", image: baseURL + "far_changing_tides.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "جيلت", titleEn: "Gylt", rating: "0.0", downloads: "2,605", size: "15 GB", image: baseURL + "gylt.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "دمر كل البشر: مجزرة المستنسخين", titleEn: "Destroy All Humans! Clone Carnage", rating: "4.5", downloads: "1,016", size: "20 GB", image: baseURL + "destroy_all_humans_clone_carnage.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "إيكاي", titleEn: "Ikai", rating: "5.0", downloads: "1,009", size: "10 GB", image: baseURL + "ikai.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "رأيت سحبا سوداء", titleEn: "I Saw Black Clouds", rating: "0.0", downloads: "909", size: "12 GB", image: baseURL + "i_saw_black_clouds.jpg", badges: ["معربة"], category: "مغامرة" },
 
             // ===== الصفحة 3 =====
-            { titleAr: "ذئب المستذئب: نهاية الأرض", titleEn: "Werewolf: The Apocalypse - Earthblood", rating: "4.3", downloads: "3,147", size: "30 GB", image: baseURL + "werewolf_the_apocalypse_earthblood.jpg", badges: ["معربة"] },
-            { titleAr: "أوفر كوكد 2", titleEn: "Overcooked! 2", rating: "5.0", downloads: "8,811", size: "10 GB", image: baseURL + "overcooked_2.jpg", badges: ["معربة"] },
-            { titleAr: "أساطير ريمان", titleEn: "Rayman Legends", rating: "4.3", downloads: "19,067", size: "15 GB", image: baseURL + "rayman_legends.jpg", badges: ["معربة"] },
-            { titleAr: "بلا طريق", titleEn: "The Pathless", rating: "4.8", downloads: "1,484", size: "25 GB", image: baseURL + "the_pathless.jpg", badges: ["معربة"] },
-            { titleAr: "حرب النجوم: ساحة المعركة روج", titleEn: "Star Wars Battlefront Rogue One", rating: "0.0", downloads: "1,333", size: "40 GB", image: baseURL + "star_wars_battlefront_rogue.jpg", badges: ["معربة"] },
-            { titleAr: "هاي أون لايف", titleEn: "High on Life", rating: "5.0", downloads: "2,596", size: "45 GB", image: baseURL + "high_on_life.jpg", badges: ["معربة"] },
-            { titleAr: "المحجر النسخة الفاخرة", titleEn: "The Quarry Deluxe Edition", rating: "2.7", downloads: "4,818", size: "50 GB", image: baseURL + "the_quarry_deluxe_edition.jpg", badges: ["معربة"] },
-            { titleAr: "الشر المقيم النسخة المحسنة", titleEn: "Resident Evil HD Remaster", rating: "1.8", downloads: "5,674", size: "20 GB", image: baseURL + "resident_evil_hd_remaster.jpg", badges: ["معربة", "ترجمة كاملة"] },
-            { titleAr: "نداء كثولو", titleEn: "Call of Cthulhu", rating: "5.0", downloads: "505", size: "15 GB", image: baseURL + "call_of_cthulhu.jpg", badges: ["معربة"] },
-            { titleAr: "أضواء تائهة", titleEn: "Strayed Lights", rating: "0.0", downloads: "745", size: "12 GB", image: baseURL + "strayed_lights.jpg", badges: ["معربة"] },
-            { titleAr: "دبليو دبليو إي 2K22", titleEn: "WWE 2K22", rating: "3.7", downloads: "2,895", size: "60 GB", image: baseURL + "wwe_2k22.jpg", badges: ["معربة"] },
-            { titleAr: "بيس 6 كأس العالم الكلاسيكي", titleEn: "PES 6 Classic World Cup", rating: "2.0", downloads: "6,730", size: "5 GB", image: baseURL + "pes_6_classic_world_cup.jpg", badges: ["معربة"] },
-            { titleAr: "الجمرة المفقودة", titleEn: "Lost Ember", rating: "4.0", downloads: "856", size: "10 GB", image: baseURL + "lost_ember.jpg", badges: ["معربة"] },
-            { titleAr: "بيس إي فوتبول UFL", titleEn: "PES eFootball UFL", rating: "4.5", downloads: "5,376", size: "25 GB", image: baseURL + "pes_efootball_ufl.jpg", badges: ["معربة", "ترجمة كاملة"] },
-            { titleAr: "دبليو آر سي 10", titleEn: "WRC 10 FIA World Rally Championship", rating: "5.0", downloads: "3,786", size: "35 GB", image: baseURL + "wrc_10_fia_world_rally_championship.jpg", badges: ["معربة"] },
-            { titleAr: "الغابة", titleEn: "The Forest", rating: "4.6", downloads: "10,306", size: "15 GB", image: baseURL + "the_forest.jpg", badges: ["قوائم وحوارات"] },
-            { titleAr: "مان هانت 2", titleEn: "Manhunt 2", rating: "5.0", downloads: "582", size: "8 GB", image: baseURL + "manhunt_2.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "الموتى السائرون", titleEn: "The Walking Dead", rating: "4.8", downloads: "1,510", size: "12 GB", image: baseURL + "the_walking_dead.jpg", badges: ["قوائم عربية"] },
-            { titleAr: "خلايا ميتة", titleEn: "Dead Cells", rating: "4.2", downloads: "1,012", size: "6 GB", image: baseURL + "dead_cells.jpg", badges: ["قوائم عربية"] },
+            { titleAr: "ذئب المستذئب: نهاية الأرض", titleEn: "Werewolf: The Apocalypse - Earthblood", rating: "4.3", downloads: "3,147", size: "30 GB", image: baseURL + "werewolf_the_apocalypse_earthblood.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "أوفر كوكد 2", titleEn: "Overcooked! 2", rating: "5.0", downloads: "8,811", size: "10 GB", image: baseURL + "overcooked_2.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "أساطير ريمان", titleEn: "Rayman Legends", rating: "4.3", downloads: "19,067", size: "15 GB", image: baseURL + "rayman_legends.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "بلا طريق", titleEn: "The Pathless", rating: "4.8", downloads: "1,484", size: "25 GB", image: baseURL + "the_pathless.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "حرب النجوم: ساحة المعركة روج", titleEn: "Star Wars Battlefront Rogue One", rating: "0.0", downloads: "1,333", size: "40 GB", image: baseURL + "star_wars_battlefront_rogue.jpg", badges: ["معربة"], category: "حروب" },
+            { titleAr: "هاي أون لايف", titleEn: "High on Life", rating: "5.0", downloads: "2,596", size: "45 GB", image: baseURL + "high_on_life.jpg", badges: ["معربة"], category: "أكشن" },
+            { titleAr: "المحجر النسخة الفاخرة", titleEn: "The Quarry Deluxe Edition", rating: "2.7", downloads: "4,818", size: "50 GB", image: baseURL + "the_quarry_deluxe_edition.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "الشر المقيم النسخة المحسنة", titleEn: "Resident Evil HD Remaster", rating: "1.8", downloads: "5,674", size: "20 GB", image: baseURL + "resident_evil_hd_remaster.jpg", badges: ["معربة", "ترجمة كاملة"], category: "مغامرة" },
+            { titleAr: "نداء كثولو", titleEn: "Call of Cthulhu", rating: "5.0", downloads: "505", size: "15 GB", image: baseURL + "call_of_cthulhu.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "أضواء تائهة", titleEn: "Strayed Lights", rating: "0.0", downloads: "745", size: "12 GB", image: baseURL + "strayed_lights.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "دبليو دبليو إي 2K22", titleEn: "WWE 2K22", rating: "3.7", downloads: "2,895", size: "60 GB", image: baseURL + "wwe_2k22.jpg", badges: ["معربة"], category: "رياضة" },
+            { titleAr: "بيس 6 كأس العالم الكلاسيكي", titleEn: "PES 6 Classic World Cup", rating: "2.0", downloads: "6,730", size: "5 GB", image: baseURL + "pes_6_classic_world_cup.jpg", badges: ["معربة"], category: "رياضة" },
+            { titleAr: "الجمرة المفقودة", titleEn: "Lost Ember", rating: "4.0", downloads: "856", size: "10 GB", image: baseURL + "lost_ember.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "بيس إي فوتبول UFL", titleEn: "PES eFootball UFL", rating: "4.5", downloads: "5,376", size: "25 GB", image: baseURL + "pes_efootball_ufl.jpg", badges: ["معربة", "ترجمة كاملة"], category: "رياضة" },
+            { titleAr: "دبليو آر سي 10", titleEn: "WRC 10 FIA World Rally Championship", rating: "5.0", downloads: "3,786", size: "35 GB", image: baseURL + "wrc_10_fia_world_rally_championship.jpg", badges: ["معربة"], category: "سباق" },
+            { titleAr: "الغابة", titleEn: "The Forest", rating: "4.6", downloads: "10,306", size: "15 GB", image: baseURL + "the_forest.jpg", badges: ["قوائم وحوارات"], category: "مغامرة" },
+            { titleAr: "مان هانت 2", titleEn: "Manhunt 2", rating: "5.0", downloads: "582", size: "8 GB", image: baseURL + "manhunt_2.jpg", badges: ["قوائم عربية"], category: "أكشن" },
+            { titleAr: "الموتى السائرون", titleEn: "The Walking Dead", rating: "4.8", downloads: "1,510", size: "12 GB", image: baseURL + "the_walking_dead.jpg", badges: ["قوائم عربية"], category: "مغامرة" },
+            { titleAr: "خلايا ميتة", titleEn: "Dead Cells", rating: "4.2", downloads: "1,012", size: "6 GB", image: baseURL + "dead_cells.jpg", badges: ["قوائم عربية"], category: "أكشن" },
 
             // ===== الصفحة 4 =====
-            { titleAr: "ميتال جير سوليد 5: فانتوم باين", titleEn: "Metal Gear Solid V: The Phantom Pain", rating: "5.0", downloads: "2,185", size: "30 GB", image: baseURL + "metal_gear_solid_v.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "نداء الواجب: العمليات السوداء 3", titleEn: "Call of Duty: Black Ops III", rating: "4.5", downloads: "68,499", size: "50 GB", image: baseURL + "call_of_duty_black_ops_iii.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "قناص محارب الأشباح: عقود 2", titleEn: "Sniper Ghost Warrior Contracts 2", rating: "5.0", downloads: "4,608", size: "25 GB", image: baseURL + "sniper_ghost_warrior_contracts_2.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "إي إيه سبورتس إف سي 27", titleEn: "EA Sports FC 27", rating: "4.1", downloads: "148,588", size: "45 GB", image: baseURL + "ea_sports_fc_27.jpg", badges: ["قوائم عربية وتعليق عربي"] },
-            { titleAr: "فيزاج", titleEn: "Visage", rating: "3.5", downloads: "4,483", size: "15 GB", image: baseURL + "visage.jpg", badges: ["معربة"] },
-            { titleAr: "ساحرة بلير", titleEn: "Blair Witch", rating: "5.0", downloads: "2,473", size: "15 GB", image: baseURL + "blair_witch.jpg", badges: ["معربة"] },
-            { titleAr: "الأخير منا النسخة المحسنة", titleEn: "The Last of Us Remastered", rating: "4.4", downloads: "146,496", size: "40 GB", image: baseURL + "the_last_of_us_remastered.jpg", badges: ["معربة"] },
-            { titleAr: "أوموري", titleEn: "OMORI", rating: "3.7", downloads: "893", size: "5 GB", image: baseURL + "omori.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "غراند ثفت أوتو 5", titleEn: "Grand Theft Auto V", rating: "4.2", downloads: "37,855", size: "90 GB", image: baseURL + "gta_v_arabic.jpg", badges: ["ترجمة كاملة"] },
-            { titleAr: "الموتى السائرون: الموسم الثاني", titleEn: "The Walking Dead: Season Two", rating: "4.4", downloads: "1,768", size: "10 GB", image: baseURL + "the_walking_dead_season_two.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "نيير ريبتشانت", titleEn: "NieR Replicant", rating: "5.0", downloads: "1,762", size: "25 GB", image: baseURL + "nier_replicant.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "مان هانت", titleEn: "Manhunt", rating: "4.8", downloads: "1,119", size: "5 GB", image: baseURL + "manhunt.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "الإيمان الأخير", titleEn: "The Last Faith", rating: "5.0", downloads: "630", size: "10 GB", image: baseURL + "the_last_faith.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "بوست فويد", titleEn: "POST VOID", rating: "5.0", downloads: "346", size: "2 GB", image: baseURL + "post_void.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "نداء الواجب: العمليات السوداء", titleEn: "Call of Duty: Black Ops", rating: "5.0", downloads: "12,681", size: "15 GB", image: baseURL + "call_of_duty_black_ops.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "بوبي بلايتايم: الفصل 1", titleEn: "Poppy Playtime: Chapter 1", rating: "4.9", downloads: "24,665", size: "5 GB", image: baseURL + "poppy_playtime_chapter_1.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "جاك القرع", titleEn: "Pumpkin Jack", rating: "5.0", downloads: "1,546", size: "10 GB", image: baseURL + "pumpkin_jack.jpg", badges: ["قوائم فقط"] },
-            { titleAr: "نداء الواجب: العمليات السوداء 2", titleEn: "Call of Duty: Black Ops II", rating: "4.5", downloads: "12,144", size: "20 GB", image: baseURL + "call_of_duty_black_ops_ii.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "نداء الواجب: الحرب الحديثة 2 و 3", titleEn: "Call of Duty: Modern Warfare II + III", rating: "4.3", downloads: "51,696", size: "130 GB", image: baseURL + "call_of_duty_modern_warfare_ii_iii.jpg", badges: ["ترجمة كاملة"] },
-            { titleAr: "ريد ديد ريدمبشن", titleEn: "Red Dead Redemption", rating: "4.8", downloads: "10,803", size: "15 GB", image: baseURL + "red_dead_redemption.jpg", badges: ["قوائم وحوارات عربية"] }
+            { titleAr: "ميتال جير سوليد 5: فانتوم باين", titleEn: "Metal Gear Solid V: The Phantom Pain", rating: "5.0", downloads: "2,185", size: "30 GB", image: baseURL + "metal_gear_solid_v.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
+            { titleAr: "نداء الواجب: العمليات السوداء 3", titleEn: "Call of Duty: Black Ops III", rating: "4.5", downloads: "68,499", size: "50 GB", image: baseURL + "call_of_duty_black_ops_iii.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
+            { titleAr: "قناص محارب الأشباح: عقود 2", titleEn: "Sniper Ghost Warrior Contracts 2", rating: "5.0", downloads: "4,608", size: "25 GB", image: baseURL + "sniper_ghost_warrior_contracts_2.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
+            { titleAr: "إي إيه سبورتس إف سي 27", titleEn: "EA Sports FC 27", rating: "4.1", downloads: "148,588", size: "45 GB", image: baseURL + "ea_sports_fc_27.jpg", badges: ["قوائم عربية وتعليق عربي"], category: "رياضة" },
+            { titleAr: "فيزاج", titleEn: "Visage", rating: "3.5", downloads: "4,483", size: "15 GB", image: baseURL + "visage.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "ساحرة بلير", titleEn: "Blair Witch", rating: "5.0", downloads: "2,473", size: "15 GB", image: baseURL + "blair_witch.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "الأخير منا النسخة المحسنة", titleEn: "The Last of Us Remastered", rating: "4.4", downloads: "146,496", size: "40 GB", image: baseURL + "the_last_of_us_remastered.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "أوموري", titleEn: "OMORI", rating: "3.7", downloads: "893", size: "5 GB", image: baseURL + "omori.jpg", badges: ["قوائم وحوارات عربية"], category: "مغامرة" },
+            { titleAr: "غراند ثفت أوتو 5", titleEn: "Grand Theft Auto V", rating: "4.2", downloads: "37,855", size: "90 GB", image: baseURL + "gta_v_arabic.jpg", badges: ["ترجمة كاملة"], category: "أكشن" },
+            { titleAr: "الموتى السائرون: الموسم الثاني", titleEn: "The Walking Dead: Season Two", rating: "4.4", downloads: "1,768", size: "10 GB", image: baseURL + "the_walking_dead_season_two.jpg", badges: ["قوائم وحوارات عربية"], category: "مغامرة" },
+            { titleAr: "نيير ريبتشانت", titleEn: "NieR Replicant", rating: "5.0", downloads: "1,762", size: "25 GB", image: baseURL + "nier_replicant.jpg", badges: ["قوائم وحوارات عربية"], category: "أكشن" },
+            { titleAr: "مان هانت", titleEn: "Manhunt", rating: "4.8", downloads: "1,119", size: "5 GB", image: baseURL + "manhunt.jpg", badges: ["قوائم وحوارات عربية"], category: "أكشن" },
+            { titleAr: "الإيمان الأخير", titleEn: "The Last Faith", rating: "5.0", downloads: "630", size: "10 GB", image: baseURL + "the_last_faith.jpg", badges: ["قوائم وحوارات عربية"], category: "أكشن" },
+            { titleAr: "بوست فويد", titleEn: "POST VOID", rating: "5.0", downloads: "346", size: "2 GB", image: baseURL + "post_void.jpg", badges: ["قوائم وحوارات عربية"], category: "أكشن" },
+            { titleAr: "نداء الواجب: العمليات السوداء", titleEn: "Call of Duty: Black Ops", rating: "5.0", downloads: "12,681", size: "15 GB", image: baseURL + "call_of_duty_black_ops.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
+            { titleAr: "بوبي بلايتايم: الفصل 1", titleEn: "Poppy Playtime: Chapter 1", rating: "4.9", downloads: "24,665", size: "5 GB", image: baseURL + "poppy_playtime_chapter_1.jpg", badges: ["قوائم وحوارات عربية"], category: "مغامرة" },
+            { titleAr: "جاك القرع", titleEn: "Pumpkin Jack", rating: "5.0", downloads: "1,546", size: "10 GB", image: baseURL + "pumpkin_jack.jpg", badges: ["قوائم فقط"], category: "مغامرة" },
+            { titleAr: "نداء الواجب: العمليات السوداء 2", titleEn: "Call of Duty: Black Ops II", rating: "4.5", downloads: "12,144", size: "20 GB", image: baseURL + "call_of_duty_black_ops_ii.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
+            { titleAr: "نداء الواجب: الحرب الحديثة 2 و 3", titleEn: "Call of Duty: Modern Warfare II + III", rating: "4.3", downloads: "51,696", size: "130 GB", image: baseURL + "call_of_duty_modern_warfare_ii_iii.jpg", badges: ["ترجمة كاملة"], category: "حروب" },
+            { titleAr: "ريد ديد ريدمبشن", titleEn: "Red Dead Redemption", rating: "4.8", downloads: "10,803", size: "15 GB", image: baseURL + "red_dead_redemption.jpg", badges: ["قوائم وحوارات عربية"], category: "مغامرة" }
         ];
 
         const container = document.getElementById('gamesContainer');
@@ -682,6 +725,10 @@
 
         const itemsPerPage = 10; 
         let currentPage = 1;
+        
+        // متغيرات الفلترة
+        let activeCategory = 'الكل';
+        let currentSearchQuery = '';
         let currentGamesList = [...gamesData]; 
 
         function getBadgeClass(badgeText) {
@@ -689,6 +736,45 @@
             if (badgeText.includes('مدبلجة')) return 'dubbed';
             if (badgeText.includes('عربية') || badgeText.includes('معربة') || badgeText.includes('ترجمة')) return 'arabic';
             return 'translated'; 
+        }
+
+        // دالة تطبيق الفلاتر (البحث + التصنيف)
+        function applyFilters() {
+            let filtered = gamesData;
+
+            // 1. فلترة حسب التصنيف
+            if (activeCategory !== 'الكل') {
+                filtered = filtered.filter(game => game.category === activeCategory);
+            }
+
+            // 2. فلترة حسب نص البحث
+            if (currentSearchQuery !== '') {
+                filtered = filtered.filter(game => 
+                    game.titleAr.toLowerCase().includes(currentSearchQuery) || 
+                    game.titleEn.toLowerCase().includes(currentSearchQuery)
+                );
+            }
+
+            currentPage = 1; // العودة للصفحة الأولى عند التغيير
+            renderGames(filtered);
+        }
+
+        // دالة تصفية الألعاب حسب التصنيف (تستدعى عند الضغط على تويب)
+        function filterByCategory(category, btnElement) {
+            activeCategory = category;
+            
+            // إزالة التفعيل عن جميع الأزرار
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            // تفعيل الزر المضغوط
+            btnElement.classList.add('active');
+
+            applyFilters();
+        }
+
+        // دالة البحث (تستدعى عند الكتابة في الحقل)
+        function filterGames() {
+            currentSearchQuery = searchInput.value.toLowerCase().trim();
+            applyFilters();
         }
 
         function renderGames(gamesToRender) {
@@ -704,7 +790,7 @@
             container.innerHTML = '';
             
             if (paginatedGames.length === 0) {
-                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-gamepad fa-3x mb-3"></i><br>لم يتم العثور على ألعاب</div>';
+                container.innerHTML = '<div class="empty-state"><i class="fa-solid fa-gamepad fa-3x mb-3"></i><br>لم يتم العثور على ألعاب في هذا القسم</div>';
                 paginationContainer.innerHTML = '';
                 return;
             }
@@ -724,11 +810,9 @@
 
                 const card = document.createElement('div');
                 card.className = 'game-card';
-                // تم إزالة شريط PS4 الأزرق المكرر من هنا
                 card.innerHTML = `
                     <div class="game-image">
                         <img src="${game.image}" class="cover" alt="${game.titleEn}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
-                        
                         <div class="badges-bottom">${badgesHtml}</div>
                     </div>
                     <div class="game-info">
@@ -794,16 +878,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function filterGames() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const filteredGames = gamesData.filter(game => 
-                game.titleAr.toLowerCase().includes(searchTerm) || 
-                game.titleEn.toLowerCase().includes(searchTerm)
-            );
-            currentPage = 1;
-            renderGames(filteredGames);
-        }
-
         function openModal(gameTitle, gameSize, gamePrice) {
             gameNameInput.value = `${gameTitle} | الحجم: ${gameSize} | السعر: ${gamePrice}`;
             modal.classList.add('active');
@@ -834,7 +908,7 @@
         }
 
         window.onload = () => {
-            renderGames(gamesData);
+            applyFilters(); // تشغيل الفلترة عند تحميل الصفحة (لعرض الكل في البداية)
         };
     </script>
 </body>
