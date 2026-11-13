@@ -583,7 +583,7 @@
         </div>
     </div>
 
-    <!-- شريط التصنيفات (Tabs) الجديد -->
+    <!-- شريط التصنيفات (Tabs) -->
     <div class="tabs-container" id="tabsContainer">
         <button class="tab-btn active" onclick="filterByCategory('الكل', this)">الكل</button>
         <button class="tab-btn" onclick="filterByCategory('أكشن', this)">أكشن</button>
@@ -625,7 +625,6 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
-        // تم إضافة حقل التصنيف (category) لكل لعبة
         const gamesData = [
             // ===== الصفحة 1 =====
             { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"], category: "أكشن" },
@@ -682,9 +681,10 @@
             { titleAr: "الشر المقيم النسخة المحسنة", titleEn: "Resident Evil HD Remaster", rating: "1.8", downloads: "5,674", size: "20 GB", image: baseURL + "resident_evil_hd_remaster.jpg", badges: ["معربة", "ترجمة كاملة"], category: "مغامرة" },
             { titleAr: "نداء كثولو", titleEn: "Call of Cthulhu", rating: "5.0", downloads: "505", size: "15 GB", image: baseURL + "call_of_cthulhu.jpg", badges: ["معربة"], category: "مغامرة" },
             { titleAr: "أضواء تائهة", titleEn: "Strayed Lights", rating: "0.0", downloads: "745", size: "12 GB", image: baseURL + "strayed_lights.jpg", badges: ["معربة"], category: "مغامرة" },
-            { titleAr: "الجمرة الفقودة", titleEn: "Lost Ember", rating: "3.7", downloads: "2,895", size: "60 GB", image: baseURL + "wwe_2k22.jpg", badges: ["معربة"], category: "رياضة" },
+            // تم تصحيح الصور هنا
+            { titleAr: "دبليو دبليو إي 2K22", titleEn: "WWE 2K22", rating: "3.7", downloads: "2,895", size: "60 GB", image: baseURL + "wwe_2k22.jpg", badges: ["معربة"], category: "رياضة" },
             { titleAr: "بيس 6 كأس العالم الكلاسيكي", titleEn: "PES 6 Classic World Cup", rating: "2.0", downloads: "6,730", size: "5 GB", image: baseURL + "pes_6_classic_world_cup.jpg", badges: ["معربة"], category: "رياضة" },
-            { titleAr: "دبليو دبليو إي 2K22", titleEn: "WWE 2K22", rating: "4.0", downloads: "856", size: "10 GB", image: baseURL + "lost_ember.jpg", badges: ["معربة"], category: "مغامرة" },
+            { titleAr: "الجمرة المفقودة", titleEn: "Lost Ember", rating: "4.0", downloads: "856", size: "10 GB", image: baseURL + "lost_ember.jpg", badges: ["معربة"], category: "مغامرة" },
             { titleAr: "بيس إي فوتبول UFL", titleEn: "PES eFootball UFL", rating: "4.5", downloads: "5,376", size: "25 GB", image: baseURL + "pes_efootball_ufl.jpg", badges: ["معربة", "ترجمة كاملة"], category: "رياضة" },
             { titleAr: "دبليو آر سي 10", titleEn: "WRC 10 FIA World Rally Championship", rating: "5.0", downloads: "3,786", size: "35 GB", image: baseURL + "wrc_10_fia_world_rally_championship.jpg", badges: ["معربة"], category: "سباق" },
             { titleAr: "الغابة", titleEn: "The Forest", rating: "4.6", downloads: "10,306", size: "15 GB", image: baseURL + "the_forest.jpg", badges: ["قوائم وحوارات"], category: "مغامرة" },
@@ -694,7 +694,7 @@
 
             // ===== الصفحة 4 =====
             { titleAr: "ميتال جير سوليد 5: فانتوم باين", titleEn: "Metal Gear Solid V: The Phantom Pain", rating: "5.0", downloads: "2,185", size: "30 GB", image: baseURL + "metal_gear_solid_v.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
-            { titleAr: "نداء الواجب: العمليات السوداء 3", titleEn: "Call of Duty: Black Ops III", rating: "4.5", downloads: "68,499", size: "130 GB", image: baseURL + "call_of_duty_black_ops_iii.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
+            { titleAr: "نداء الواجب: العمليات السوداء 3", titleEn: "Call of Duty: Black Ops III", rating: "4.5", downloads: "68,499", size: "50 GB", image: baseURL + "call_of_duty_black_ops_iii.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
             { titleAr: "قناص محارب الأشباح: عقود 2", titleEn: "Sniper Ghost Warrior Contracts 2", rating: "5.0", downloads: "4,608", size: "25 GB", image: baseURL + "sniper_ghost_warrior_contracts_2.jpg", badges: ["قوائم وحوارات عربية"], category: "حروب" },
             { titleAr: "إي إيه سبورتس إف سي 27", titleEn: "EA Sports FC 27", rating: "4.1", downloads: "148,588", size: "45 GB", image: baseURL + "ea_sports_fc_27.jpg", badges: ["قوائم عربية وتعليق عربي"], category: "رياضة" },
             { titleAr: "فيزاج", titleEn: "Visage", rating: "3.5", downloads: "4,483", size: "15 GB", image: baseURL + "visage.jpg", badges: ["معربة"], category: "مغامرة" },
@@ -725,8 +725,6 @@
 
         const itemsPerPage = 10; 
         let currentPage = 1;
-        
-        // متغيرات الفلترة
         let activeCategory = 'الكل';
         let currentSearchQuery = '';
         let currentGamesList = [...gamesData]; 
@@ -738,16 +736,13 @@
             return 'translated'; 
         }
 
-        // دالة تطبيق الفلاتر (البحث + التصنيف)
         function applyFilters() {
             let filtered = gamesData;
 
-            // 1. فلترة حسب التصنيف
             if (activeCategory !== 'الكل') {
                 filtered = filtered.filter(game => game.category === activeCategory);
             }
 
-            // 2. فلترة حسب نص البحث
             if (currentSearchQuery !== '') {
                 filtered = filtered.filter(game => 
                     game.titleAr.toLowerCase().includes(currentSearchQuery) || 
@@ -755,23 +750,17 @@
                 );
             }
 
-            currentPage = 1; // العودة للصفحة الأولى عند التغيير
+            currentPage = 1; 
             renderGames(filtered);
         }
 
-        // دالة تصفية الألعاب حسب التصنيف (تستدعى عند الضغط على تويب)
         function filterByCategory(category, btnElement) {
             activeCategory = category;
-            
-            // إزالة التفعيل عن جميع الأزرار
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            // تفعيل الزر المضغوط
             btnElement.classList.add('active');
-
             applyFilters();
         }
 
-        // دالة البحث (تستدعى عند الكتابة في الحقل)
         function filterGames() {
             currentSearchQuery = searchInput.value.toLowerCase().trim();
             applyFilters();
@@ -797,7 +786,24 @@
 
             paginatedGames.forEach(game => {
                 const sizeNumber = parseInt(game.size) || 0;
-                let calculatedPrice = sizeNumber > 20 ? "2,000 د.ع" : "1,000 د.ع";
+                
+                // === نظام الأسعار الجديد ===
+                let calculatedPrice = "";
+                
+                if (game.titleEn === "Call of Duty: Modern Warfare II + III") {
+                    // استثناء خاص للعبة الحرب الحديثة المزدوجة
+                    calculatedPrice = "5,000 د.ع";
+                } else if (sizeNumber >= 100) {
+                    // الألعاب 100 جيجا وأكثر
+                    calculatedPrice = "3,000 د.ع";
+                } else if (sizeNumber > 20) {
+                    // الألعاب أكبر من 20 جيجا
+                    calculatedPrice = "2,000 د.ع";
+                } else {
+                    // الألعاب 20 جيجا أو أقل
+                    calculatedPrice = "1,000 د.ع";
+                }
+                // ==========================
 
                 const fallbackImage = `https://placehold.co/300x400/1a1a1a/ffffff?text=${encodeURIComponent(game.titleEn)}`;
 
@@ -887,7 +893,6 @@
         }
 
         function closeModal() { modal.classList.remove('active'); }
-        
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
         function sendToWhatsApp(event) {
@@ -908,7 +913,7 @@
         }
 
         window.onload = () => {
-            applyFilters(); // تشغيل الفلترة عند تحميل الصفحة (لعرض الكل في البداية)
+            applyFilters(); 
         };
     </script>
 </body>
