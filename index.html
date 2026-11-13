@@ -37,9 +37,7 @@
             padding-bottom: 50px;
         }
 
-        /* =========================================
-           الشريط العلوي (Top Navbar)
-           ========================================= */
+        /* الشريط العلوي (Top Navbar) */
         .top-navbar {
             background-color: #111;
             display: flex;
@@ -92,9 +90,7 @@
 
         .nav-logo i { font-size: 22px; }
 
-        /* =========================================
-           مسار التنقل (Breadcrumb) والمنصات
-           ========================================= */
+        /* مسار التنقل والمنصات */
         .sub-nav {
             padding: 15px;
             background-color: var(--bg-color);
@@ -146,9 +142,7 @@
             border-radius: 3px;
         }
 
-        /* =========================================
-           البانر الرئيسي (Hero Banner) مع الخلفية
-           ========================================= */
+        /* البانر الرئيسي مع الخلفية */
         .hero-banner {
             margin: 10px 15px;
             height: 180px;
@@ -211,9 +205,7 @@
         .shop-info-bar i { width: 16px; text-align: center; }
         .shop-info-bar .shop-phone a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
 
-        /* =========================================
-           شريط الفلاتر (Filter Bar)
-           ========================================= */
+        /* شريط الفلاتر */
         .filter-bar {
             margin: 20px 15px 10px;
             display: flex;
@@ -242,9 +234,7 @@
             cursor: pointer;
         }
 
-        /* =========================================
-           شبكة الألعاب (Games Grid)
-           ========================================= */
+        /* شبكة الألعاب */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -271,7 +261,6 @@
             position: relative;
         }
 
-        /* الشريط الأزرق لـ PS4 أعلى الصورة */
         .ps4-top-bar {
             position: absolute;
             top: 0;
@@ -296,7 +285,6 @@
             padding-top: 20px;
         }
 
-        /* تنسيق شارات الترجمة */
         .badges-bottom {
             position: absolute;
             bottom: 8px;
@@ -315,7 +303,6 @@
             color: white;
         }
 
-        /* ألوان شارات الترجمة */
         .badge.translated { background-color: #9b59b6; }
         .badge.arabic { background-color: #2980b9; }
         .badge.dubbed { background-color: #e74c3c; }
@@ -369,7 +356,6 @@
         .game-stats span { display: flex; align-items: center; gap: 4px; }
         .rating i { color: var(--warning-color); }
 
-        /* تنسيق السعر */
         .game-price {
             font-size: 14px;
             font-weight: bold;
@@ -382,7 +368,6 @@
             border: 1px dashed rgba(241, 196, 15, 0.3);
         }
 
-        /* تنسيق أزرار الإضافة والمشاهدة */
         .action-buttons {
             display: flex;
             gap: 6px;
@@ -419,9 +404,7 @@
 
         .btn-watch:hover { background-color: #cc0000; }
 
-        /* =========================================
-           الترقيم (Pagination)
-           ========================================= */
+        /* الترقيم */
         .pagination {
             display: flex;
             justify-content: center;
@@ -529,7 +512,6 @@
 </head>
 <body>
 
-    <!-- الشريط العلوي -->
     <nav class="top-navbar">
         <div class="nav-right">
             <button class="nav-btn text-btn"><i class="fa-solid fa-chevron-down"></i> AR</button>
@@ -546,7 +528,6 @@
         </div>
     </nav>
 
-    <!-- مسار التنقل والمنصات -->
     <div class="sub-nav">
         <div class="breadcrumb">
             Home <i class="fa-solid fa-chevron-left" style="font-size:10px; margin:0 5px;"></i> Arabic Games <i class="fa-solid fa-chevron-left" style="font-size:10px; margin:0 5px;"></i> <span>PS4</span>
@@ -562,7 +543,6 @@
         </div>
     </div>
 
-    <!-- البانر الرئيسي مع البحث والخلفية -->
     <div class="hero-banner">
         <div class="hero-search">
             <input type="text" id="searchInput" placeholder="ابحث عن لعبة عربية..." onkeyup="filterGames()">
@@ -570,14 +550,12 @@
         </div>
     </div>
 
-    <!-- معلومات مكتب العراب -->
     <div class="shop-info-bar">
         <span class="shop-name"><i class="fa-solid fa-store" style="color: var(--warning-color);"></i> مكتب العراب</span>
         <span class="shop-phone"><i class="fa-solid fa-phone" style="color: var(--primary-color);"></i> الهاتف: <a href="tel:07712082333">07712082333</a></span>
         <span class="shop-address"><i class="fa-solid fa-location-dot" style="color: var(--accent-color);"></i> شارع المستشفى - مقابل اسواق ابو شيبة</span>
     </div>
 
-    <!-- شريط الفلاتر -->
     <div class="filter-bar">
         <div class="filter-bar-left">
             <span style="color: var(--primary-color); font-weight:bold;">444 الألعاب</span>
@@ -587,15 +565,12 @@
         </div>
     </div>
 
-    <!-- شبكة الألعاب -->
     <div class="container" id="gamesContainer">
         <!-- سيتم حقن الألعاب هنا -->
     </div>
 
-    <!-- الترقيم -->
     <div class="pagination" id="pagination"></div>
 
-    <!-- Modal -->
     <div class="modal-overlay" id="orderModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -625,8 +600,9 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
+        // تمت مراجعة وتصحيح جميع الأسماء لتتطابق مع صور الأغلفة
         const gamesData = [
-            // ===== الدفعة الأولى (20 لعبة) =====
+            // ===== الصفحة 1 =====
             { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
             { titleAr: "عقيدة الأساسنز: السراب", titleEn: "AC Mirage", rating: "4.3", downloads: "110,740", size: "45 GB", image: baseURL + "mirage.jpg", badges: ["معربة"] },
             { titleAr: "نداء الواجب: الحرب الباردة", titleEn: "COD Cold War", rating: "4.3", downloads: "19,782", size: "130 GB", image: baseURL + "cod.jpg", badges: ["معربة"] },
@@ -648,7 +624,7 @@
             { titleAr: "ذا إلدر سكرولز 5: سكايريم", titleEn: "Skyrim", rating: "3.2", downloads: "5,485", size: "35 GB", image: baseURL + "skyrim.jpg", badges: ["معربة"] },
             { titleAr: "داركسايدرز 3", titleEn: "Darksiders 3", rating: "1.8", downloads: "2,567", size: "25 GB", image: baseURL + "darksiders3.jpg", badges: ["معربة"] },
 
-            // ===== الدفعة الثانية (20 لعبة) =====
+            // ===== الصفحة 2 =====
             { titleAr: "واتش دوغز: الفيلق", titleEn: "Watch Dogs Legion", rating: "3.6", downloads: "7,323", size: "50 GB", image: baseURL + "watch_dogs_legion.jpg", badges: ["قوائم عربية"] },
             { titleAr: "الموتى السائرون: حدود جديدة", titleEn: "The Walking Dead: A New Frontier", rating: "4.0", downloads: "5,961", size: "25 GB", image: baseURL + "the_walking_dead_a_new_frontier.jpg", badges: ["معربة"] },
             { titleAr: "سايلنت هيل 2", titleEn: "Silent Hill 2", rating: "5.0", downloads: "1,414", size: "35 GB", image: baseURL + "silent_hill_2.jpg", badges: ["قوائم وحوارات"] },
@@ -670,13 +646,12 @@
             { titleAr: "إيكاي", titleEn: "Ikai", rating: "5.0", downloads: "1,009", size: "10 GB", image: baseURL + "ikai.jpg", badges: ["معربة"] },
             { titleAr: "رأيت سحبا سوداء", titleEn: "I Saw Black Clouds", rating: "0.0", downloads: "909", size: "12 GB", image: baseURL + "i_saw_black_clouds.jpg", badges: ["معربة"] },
 
-            // ===== الدفعة الثالثة (20 لعبة) =====
-            { titleAr: "القتيل: الروح المشتبه بها", titleEn: "Murdered Soul Suspect", rating: "4.0", downloads: "1,344", size: "18 GB", image: baseURL + "murdered_soul_suspect.jpg", badges: ["معربة"] },
-            { titleAr: "ذئب المستذئب: نهاية الأرض", titleEn: "Werewolf The Apocalypse Earthblood", rating: "4.3", downloads: "3,147", size: "30 GB", image: baseURL + "werewolf_the_apocalypse_earthblood.jpg", badges: ["معربة"] },
-            { titleAr: "أوفر كوكد 2", titleEn: "Overcooked 2", rating: "5.0", downloads: "8,811", size: "10 GB", image: baseURL + "overcooked_2.jpg", badges: ["معربة"] },
+            // ===== الصفحة 3 =====
+            { titleAr: "ذئب المستذئب: نهاية الأرض", titleEn: "Werewolf: The Apocalypse - Earthblood", rating: "4.3", downloads: "3,147", size: "30 GB", image: baseURL + "werewolf_the_apocalypse_earthblood.jpg", badges: ["معربة"] },
+            { titleAr: "أوفر كوكد 2", titleEn: "Overcooked! 2", rating: "5.0", downloads: "8,811", size: "10 GB", image: baseURL + "overcooked_2.jpg", badges: ["معربة"] },
             { titleAr: "أساطير ريمان", titleEn: "Rayman Legends", rating: "4.3", downloads: "19,067", size: "15 GB", image: baseURL + "rayman_legends.jpg", badges: ["معربة"] },
             { titleAr: "بلا طريق", titleEn: "The Pathless", rating: "4.8", downloads: "1,484", size: "25 GB", image: baseURL + "the_pathless.jpg", badges: ["معربة"] },
-            { titleAr: "حرب النجوم: ساحة المعركة روج", titleEn: "Star Wars Battlefront Rogue", rating: "0.0", downloads: "1,333", size: "40 GB", image: baseURL + "star_wars_battlefront_rogue.jpg", badges: ["معربة"] },
+            { titleAr: "حرب النجوم: ساحة المعركة روج", titleEn: "Star Wars Battlefront Rogue One", rating: "0.0", downloads: "1,333", size: "40 GB", image: baseURL + "star_wars_battlefront_rogue.jpg", badges: ["معربة"] },
             { titleAr: "هاي أون لايف", titleEn: "High on Life", rating: "5.0", downloads: "2,596", size: "45 GB", image: baseURL + "high_on_life.jpg", badges: ["معربة"] },
             { titleAr: "المحجر النسخة الفاخرة", titleEn: "The Quarry Deluxe Edition", rating: "2.7", downloads: "4,818", size: "50 GB", image: baseURL + "the_quarry_deluxe_edition.jpg", badges: ["معربة"] },
             { titleAr: "الشر المقيم النسخة المحسنة", titleEn: "Resident Evil HD Remaster", rating: "1.8", downloads: "5,674", size: "20 GB", image: baseURL + "resident_evil_hd_remaster.jpg", badges: ["معربة", "ترجمة كاملة"] },
@@ -692,16 +667,16 @@
             { titleAr: "الموتى السائرون", titleEn: "The Walking Dead", rating: "4.8", downloads: "1,510", size: "12 GB", image: baseURL + "the_walking_dead.jpg", badges: ["قوائم عربية"] },
             { titleAr: "خلايا ميتة", titleEn: "Dead Cells", rating: "4.2", downloads: "1,012", size: "6 GB", image: baseURL + "dead_cells.jpg", badges: ["قوائم عربية"] },
 
-            // ===== الدفعة الرابعة (20 لعبة جديدة) =====
+            // ===== الصفحة 4 =====
             { titleAr: "ميتال جير سوليد 5: فانتوم باين", titleEn: "Metal Gear Solid V: The Phantom Pain", rating: "5.0", downloads: "2,185", size: "30 GB", image: baseURL + "metal_gear_solid_v.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "نداء الواجب: العمليات السوداء 3", titleEn: "Call of Duty: Black Ops III", rating: "4.5", downloads: "68,499", size: "50 GB", image: baseURL + "call_of_duty_black_ops_iii.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "قناص محارب الأشباح: عقود 2", titleEn: "Sniper Ghost Warrior Contracts 2", rating: "5.0", downloads: "4,608", size: "25 GB", image: baseURL + "sniper_ghost_warrior_contracts_2.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "إي إيه سبورتس إف سي 27", titleEn: "EA Sports FC 27", rating: "4.1", downloads: "148,588", size: "45 GB", image: baseURL + "ea_sports_fc_27.jpg", badges: ["قوائم عربية وتعليق عربي"] },
             { titleAr: "فيزاج", titleEn: "Visage", rating: "3.5", downloads: "4,483", size: "15 GB", image: baseURL + "visage.jpg", badges: ["معربة"] },
             { titleAr: "ساحرة بلير", titleEn: "Blair Witch", rating: "5.0", downloads: "2,473", size: "15 GB", image: baseURL + "blair_witch.jpg", badges: ["معربة"] },
-            { titleAr: "الأخير منا النسخة المحسنة", titleEn: "The last of us Remastered", rating: "4.4", downloads: "146,496", size: "40 GB", image: baseURL + "the_last_of_us_remastered.jpg", badges: ["معربة"] },
+            { titleAr: "الأخير منا النسخة المحسنة", titleEn: "The Last of Us Remastered", rating: "4.4", downloads: "146,496", size: "40 GB", image: baseURL + "the_last_of_us_remastered.jpg", badges: ["معربة"] },
             { titleAr: "أوموري", titleEn: "OMORI", rating: "3.7", downloads: "893", size: "5 GB", image: baseURL + "omori.jpg", badges: ["قوائم وحوارات عربية"] },
-            { titleAr: "غراند ثفت أوتو 5", titleEn: "Grand Theft Auto V Arabic", rating: "4.2", downloads: "37,855", size: "90 GB", image: baseURL + "gta_v_arabic.jpg", badges: ["ترجمة كاملة"] },
+            { titleAr: "غراند ثفت أوتو 5", titleEn: "Grand Theft Auto V", rating: "4.2", downloads: "37,855", size: "90 GB", image: baseURL + "gta_v_arabic.jpg", badges: ["ترجمة كاملة"] },
             { titleAr: "الموتى السائرون: الموسم الثاني", titleEn: "The Walking Dead: Season Two", rating: "4.4", downloads: "1,768", size: "10 GB", image: baseURL + "the_walking_dead_season_two.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "نيير ريبتشانت", titleEn: "NieR Replicant", rating: "5.0", downloads: "1,762", size: "25 GB", image: baseURL + "nier_replicant.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "مان هانت", titleEn: "Manhunt", rating: "4.8", downloads: "1,119", size: "5 GB", image: baseURL + "manhunt.jpg", badges: ["قوائم وحوارات عربية"] },
@@ -763,7 +738,6 @@
                     badgesHtml = game.badges.map(b => `<span class="badge ${getBadgeClass(b)}">${b}</span>`).join('');
                 }
 
-                // رابط يوتيوب
                 const youtubeSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(game.titleEn + ' PS4 gameplay trailer')}`;
 
                 const card = document.createElement('div');
@@ -792,7 +766,6 @@
 
                         <div class="game-price">السعر : ${calculatedPrice}</div>
 
-                        <!-- أزرار الإضافة والمشاهدة -->
                         <div class="action-buttons">
                             <button class="btn-add" onclick="openModal('${game.titleAr} (${game.titleEn})', '${game.size}', '${calculatedPrice}')">
                                 <i class="fa-solid fa-cart-plus"></i> إضافة
@@ -821,7 +794,6 @@
             prevBtn.onclick = () => changePage(currentPage - 1);
             paginationContainer.appendChild(prevBtn);
 
-            // لإظهار جميع أرقام الصفحات
             for (let i = 1; i <= totalPages; i++) {
                 const pageBtn = document.createElement('button');
                 pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
@@ -864,7 +836,7 @@
 
         function closeModal() { modal.classList.remove('active'); }
         
-        // تم إصلاح الخطأ هنا بإضافة السهم =>
+        // إصلاح الخطأ البرمجي هنا (تمت إضافة السهم =>)
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
         function sendToWhatsApp(event) {
