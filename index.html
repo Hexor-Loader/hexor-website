@@ -254,35 +254,21 @@
             border: 1px solid #222;
         }
 
+        /* تعديل قياس الصورة ليكون موحداً */
         .game-image {
             width: 100%;
-            aspect-ratio: 3 / 4;
+            aspect-ratio: 3 / 4; /* يفرض نفس الطول والعرض لجميع الصور */
             background: #2a2a2a;
             position: relative;
-        }
-
-        .ps4-top-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--ps-blue);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2px 8px;
-            z-index: 5;
-            font-size: 12px;
-            font-weight: bold;
+            overflow: hidden;
         }
 
         .game-image img.cover {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* يملأ المساحة بدون تشوه */
             display: block;
-            padding-top: 20px;
+            /* تم إزالة padding-top الذي كان يسبب الفراغ */
         }
 
         .badges-bottom {
@@ -565,10 +551,7 @@
         </div>
     </div>
 
-    <div class="container" id="gamesContainer">
-        <!-- سيتم حقن الألعاب هنا -->
-    </div>
-
+    <div class="container" id="gamesContainer"></div>
     <div class="pagination" id="pagination"></div>
 
     <div class="modal-overlay" id="orderModal">
@@ -666,7 +649,7 @@
             { titleAr: "الموتى السائرون", titleEn: "The Walking Dead", rating: "4.8", downloads: "1,510", size: "12 GB", image: baseURL + "the_walking_dead.jpg", badges: ["قوائم عربية"] },
             { titleAr: "خلايا ميتة", titleEn: "Dead Cells", rating: "4.2", downloads: "1,012", size: "6 GB", image: baseURL + "dead_cells.jpg", badges: ["قوائم عربية"] },
 
-            // ===== الصفحة 4 (مطابقة تماماً للقائمة التي أرسلتها) =====
+            // ===== الصفحة 4 =====
             { titleAr: "ميتال جير سوليد 5: فانتوم باين", titleEn: "Metal Gear Solid V: The Phantom Pain", rating: "5.0", downloads: "2,185", size: "30 GB", image: baseURL + "metal_gear_solid_v.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "نداء الواجب: العمليات السوداء 3", titleEn: "Call of Duty: Black Ops III", rating: "4.5", downloads: "68,499", size: "50 GB", image: baseURL + "call_of_duty_black_ops_iii.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "قناص محارب الأشباح: عقود 2", titleEn: "Sniper Ghost Warrior Contracts 2", rating: "5.0", downloads: "4,608", size: "25 GB", image: baseURL + "sniper_ghost_warrior_contracts_2.jpg", badges: ["قوائم وحوارات عربية"] },
@@ -741,13 +724,9 @@
 
                 const card = document.createElement('div');
                 card.className = 'game-card';
+                // تم إزالة شريط PS4 الأزرق المكرر من هنا
                 card.innerHTML = `
                     <div class="game-image">
-                        <div class="ps4-top-bar">
-                            <i class="fa-brands fa-playstation"></i>
-                            <span>PS4</span>
-                        </div>
-                        
                         <img src="${game.image}" class="cover" alt="${game.titleEn}" loading="lazy" onerror="this.onerror=null; this.src='${fallbackImage}';">
                         
                         <div class="badges-bottom">${badgesHtml}</div>
