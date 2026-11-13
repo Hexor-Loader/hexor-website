@@ -863,7 +863,9 @@
         }
 
         function closeModal() { modal.classList.remove('active'); }
-        modal.addEventListener('click', (e) { if (e.target === modal) closeModal(); });
+        
+        // تم إصلاح الخطأ هنا بإضافة السهم =>
+        modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
         function sendToWhatsApp(event) {
             event.preventDefault();
