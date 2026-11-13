@@ -600,7 +600,6 @@
     <script>
         const baseURL = "https://raw.githubusercontent.com/Hexor-Loader/hexor-website/main/images/";
 
-        // تمت مراجعة وتصحيح جميع الأسماء لتتطابق مع صور الأغلفة
         const gamesData = [
             // ===== الصفحة 1 =====
             { titleAr: "واتش دوغز", titleEn: "Watch Dogs", rating: "4.4", downloads: "1,786", size: "25 GB", image: baseURL + "watchdogs.jpg", badges: ["قوائم عربية"] },
@@ -667,7 +666,7 @@
             { titleAr: "الموتى السائرون", titleEn: "The Walking Dead", rating: "4.8", downloads: "1,510", size: "12 GB", image: baseURL + "the_walking_dead.jpg", badges: ["قوائم عربية"] },
             { titleAr: "خلايا ميتة", titleEn: "Dead Cells", rating: "4.2", downloads: "1,012", size: "6 GB", image: baseURL + "dead_cells.jpg", badges: ["قوائم عربية"] },
 
-            // ===== الصفحة 4 =====
+            // ===== الصفحة 4 (مطابقة تماماً للقائمة التي أرسلتها) =====
             { titleAr: "ميتال جير سوليد 5: فانتوم باين", titleEn: "Metal Gear Solid V: The Phantom Pain", rating: "5.0", downloads: "2,185", size: "30 GB", image: baseURL + "metal_gear_solid_v.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "نداء الواجب: العمليات السوداء 3", titleEn: "Call of Duty: Black Ops III", rating: "4.5", downloads: "68,499", size: "50 GB", image: baseURL + "call_of_duty_black_ops_iii.jpg", badges: ["قوائم وحوارات عربية"] },
             { titleAr: "قناص محارب الأشباح: عقود 2", titleEn: "Sniper Ghost Warrior Contracts 2", rating: "5.0", downloads: "4,608", size: "25 GB", image: baseURL + "sniper_ghost_warrior_contracts_2.jpg", badges: ["قوائم وحوارات عربية"] },
@@ -836,7 +835,6 @@
 
         function closeModal() { modal.classList.remove('active'); }
         
-        // إصلاح الخطأ البرمجي هنا (تمت إضافة السهم =>)
         modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
         function sendToWhatsApp(event) {
