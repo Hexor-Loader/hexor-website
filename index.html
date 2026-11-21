@@ -1151,24 +1151,21 @@
             }
 
             paginatedGames.forEach(game => {
-                const sizeNumber = parseInt(game.size) || 0;
-                
-                let calculatedPrice = "";
-                
-                if (game.titleEn === "Call of Duty: Modern Warfare II + III") {
-                    calculatedPrice = "5,000 د.ع";
-                } else if (game.titleEn === "Call of Duty: Black Ops III") {
-                    calculatedPrice = "3,000 د.ع";
-                } else if (game.titleEn === "Call of Duty: Black Ops II") {
-                    calculatedPrice = "2,000 د.ع";
-                } else if (game.titleEn === "COD Cold War") {
-                    calculatedPrice = "4,000 د.ع";
-                } else if (sizeNumber >= 100) {
-                    calculatedPrice = "3,000 د.ع";
-                } else if (sizeNumber > 20) {
-                    calculatedPrice = "2,000 د.ع";
-                } else {
+                // تحديد السعر تلقائياً حسب حجم اللعبة:
+                // من 1 إلى 15 GB = 1,000 د.ع
+                // أكبر من 15 وحتى 70 GB = 2,000 د.ع
+                // أكبر من 70 GB = 3,000 د.ع
+                const sizeMatch = String(game.size || "").match(/[0-9]+(?:\.[0-9]+)?/);
+                const sizeNumber = sizeMatch ? parseFloat(sizeMatch[0]) : NaN;
+
+                let calculatedPrice = "غير محدد";
+
+                if (Number.isFinite(sizeNumber) && sizeNumber >= 1 && sizeNumber <= 15) {
                     calculatedPrice = "1,000 د.ع";
+                } else if (Number.isFinite(sizeNumber) && sizeNumber > 15 && sizeNumber <= 70) {
+                    calculatedPrice = "2,000 د.ع";
+                } else if (Number.isFinite(sizeNumber) && sizeNumber > 70) {
+                    calculatedPrice = "3,000 د.ع";
                 }
 
                 const fallbackImage = `https://placehold.co/300x400/1a1a1a/ffffff?text=${encodeURIComponent(game.titleEn)}`;
